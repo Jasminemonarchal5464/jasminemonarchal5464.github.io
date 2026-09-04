@@ -75,45 +75,59 @@
       from { transform: translate3d(-30vw, 0, 0); }
       to { transform: translate3d(110vw, 0, 0); }
     }
-    .bird {
+    .f16 {
       position: absolute;
-      color: #16324a;
-      opacity: 0.8;
-      font-size: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      height: 18px;
     }
-    .bird svg { display: block; }
-    .b1 {
-      top: 54px;
-      width: 36px;
-      height: 14px;
-      animation: land1 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards;
+    .f16 svg {
+      width: 52px;
+      height: 18px;
+      display: block;
+      overflow: visible;
+      flex: 0 0 52px;
     }
-    .b2 {
-      top: 76px;
-      width: 28px;
-      height: 11px;
-      opacity: 0.65;
-      animation: land2 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards;
+    .f16 .contrail {
+      height: 2px;
+      width: 0;
+      border-radius: 2px;
+      margin-right: 2px;
+      opacity: 0.9;
     }
-    .b3 {
-      top: 62px;
-      width: 24px;
-      height: 10px;
-      opacity: 0.55;
-      animation: land3 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards;
+    .f1 { top: 54px; animation: land1 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards; }
+    .f2 { top: 76px; animation: land2 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards; }
+    .f2 svg { width: 44px; height: 16px; flex-basis: 44px; }
+    .f3 { top: 62px; animation: land3 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards; }
+    .f3 svg { width: 40px; height: 14px; flex-basis: 40px; }
+    .f1 .contrail {
+      background: linear-gradient(90deg, transparent, #0a3a7a);
+      animation: trail 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards;
     }
-    .b1 svg, .b2 svg, .b3 svg { width: 100%; height: 100%; }
+    .f2 .contrail {
+      background: linear-gradient(90deg, transparent, #fff);
+      animation: trail 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards;
+    }
+    .f3 .contrail {
+      background: linear-gradient(90deg, transparent, #0a3a7a);
+      animation: trail 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards;
+    }
     @keyframes land1 {
-      from { transform: translate3d(-50px, 8px, 0); }
+      from { transform: translate3d(-80px, 8px, 0); }
       to   { transform: translate3d(48vw, 0, 0); }
     }
     @keyframes land2 {
-      from { transform: translate3d(-50px, 10px, 0); }
+      from { transform: translate3d(-80px, 10px, 0); }
       to   { transform: translate3d(36vw, 0, 0); }
     }
     @keyframes land3 {
-      from { transform: translate3d(-50px, 4px, 0); }
+      from { transform: translate3d(-80px, 4px, 0); }
       to   { transform: translate3d(60vw, 0, 0); }
+    }
+    @keyframes trail {
+      from { width: 8px; opacity: 0.35; }
+      to   { width: 88px; opacity: 0.95; }
     }
     .plane {
       position: absolute;
@@ -301,16 +315,17 @@
       header { margin-bottom: 22px; }
       article { min-height: 0; }
       .plane { top: 102px; }
-      .b1 { top: 46px; }
-      .b2 { top: 68px; }
-      .b3 { top: 54px; }
+      .f1 { top: 46px; }
+      .f2 { top: 68px; }
+      .f3 { top: 54px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane, .bird { animation: none; }
+      .cloud, .plane, .f16, .contrail { animation: none; }
       .plane { left: 42%; }
-      .b1 { left: 48vw; }
-      .b2 { left: 36vw; }
-      .b3 { left: 60vw; }
+      .f1 { left: 48vw; }
+      .f2 { left: 36vw; }
+      .f3 { left: 60vw; }
+      .contrail { width: 88px; }
     }
   </style>
 </head>
@@ -324,19 +339,34 @@
   </div>
 
   <div class="hud" aria-hidden="true">
-    <div class="bird b1">
-      <svg viewBox="0 0 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M2 10 L18 3 L34 10"/>
+    <div class="f16 f1">
+      <span class="contrail"></span>
+      <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+        <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
+        <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
+        <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
+        <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
+        <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
       </svg>
     </div>
-    <div class="bird b2">
-      <svg viewBox="0 0 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M2 10 L18 3 L34 10"/>
+    <div class="f16 f2">
+      <span class="contrail"></span>
+      <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+        <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
+        <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
+        <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
+        <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
+        <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
       </svg>
     </div>
-    <div class="bird b3">
-      <svg viewBox="0 0 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M2 10 L18 3 L34 10"/>
+    <div class="f16 f3">
+      <span class="contrail"></span>
+      <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+        <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
+        <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
+        <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
+        <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
+        <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
       </svg>
     </div>
     <div class="plane">
