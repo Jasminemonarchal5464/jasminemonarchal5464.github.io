@@ -76,6 +76,37 @@
       from { transform: translate3d(-30vw, 0, 0); }
       to { transform: translate3d(110vw, 0, 0); }
     }
+    .flock {
+      position: absolute;
+      left: 0;
+      width: 28px;
+      height: 16px;
+      color: #2a4a6a;
+      opacity: 0.72;
+      will-change: transform;
+    }
+    .flock svg { width: 28px; height: 16px; display: block; overflow: visible; }
+    .flock .wing {
+      transform-origin: 14px 8px;
+      animation: flap 0.42s ease-in-out infinite;
+    }
+    .b1 { top: 14%; animation: flock 22s linear infinite; }
+    .b2 { top: 22%; width: 22px; height: 13px; opacity: 0.55; animation: flock 28s linear infinite; animation-delay: -8s; }
+    .b2 svg { width: 22px; height: 13px; }
+    .b3 { top: 18%; width: 20px; height: 12px; opacity: 0.48; animation: flock 26s linear infinite; animation-delay: -14s; }
+    .b3 svg { width: 20px; height: 12px; }
+    .b2 .wing, .b3 .wing { transform-origin: 11px 6px; animation-duration: 0.36s; }
+    @keyframes flock {
+      0%   { transform: translate3d(-40px, 0, 0); }
+      25%  { transform: translate3d(25vw, -10px, 0); }
+      50%  { transform: translate3d(52vw, 8px, 0); }
+      75%  { transform: translate3d(78vw, -6px, 0); }
+      100% { transform: translate3d(calc(100vw + 40px), 4px, 0); }
+    }
+    @keyframes flap {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.25); }
+    }
     .plane {
       position: absolute;
       left: 0;
@@ -264,8 +295,11 @@
       .plane { top: 102px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane { animation: none; }
+      .cloud, .plane, .flock, .flock .wing { animation: none; }
       .plane { left: 42%; }
+      .b1 { left: 18%; }
+      .b2 { left: 32%; }
+      .b3 { left: 26%; }
     }
   </style>
 </head>
@@ -276,6 +310,21 @@
     <div class="cloud c3"></div>
     <div class="cloud c4"></div>
     <div class="cloud c5"></div>
+    <div class="flock b1">
+      <svg viewBox="0 0 28 16" fill="currentColor">
+        <path class="wing" d="M2 9 C8 2 12 2 14 8 C16 2 20 2 26 9 C20 7 16 9 14 12 C12 9 8 7 2 9Z"/>
+      </svg>
+    </div>
+    <div class="flock b2">
+      <svg viewBox="0 0 28 16" fill="currentColor">
+        <path class="wing" d="M2 9 C8 2 12 2 14 8 C16 2 20 2 26 9 C20 7 16 9 14 12 C12 9 8 7 2 9Z"/>
+      </svg>
+    </div>
+    <div class="flock b3">
+      <svg viewBox="0 0 28 16" fill="currentColor">
+        <path class="wing" d="M2 9 C8 2 12 2 14 8 C16 2 20 2 26 9 C20 7 16 9 14 12 C12 9 8 7 2 9Z"/>
+      </svg>
+    </div>
   </div>
 
   <div class="hud" aria-hidden="true">
@@ -356,8 +405,7 @@
   </div>
   <script>
     document.addEventListener("visibilitychange", function () {
-      document.body.style.animationPlayState = document.hidden ? "paused" : "running";
-      var nodes = document.querySelectorAll(".cloud, .plane");
+      var nodes = document.querySelectorAll(".cloud, .plane, .flock, .wing");
       for (var i = 0; i < nodes.length; i++) {
         nodes[i].style.animationPlayState = document.hidden ? "paused" : "running";
       }
