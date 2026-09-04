@@ -7,23 +7,23 @@
   <meta name="description" content="Local-first AI tools. Consumer GPU." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #070806;
-      --panel: #10110e;
-      --fg: #efece3;
-      --dim: #8d8a7c;
-      --line: #2c2e26;
-      --acc: #d6ff4a;
-      --acc2: #6ee7b7;
+      --bg: #14160f;
+      --panel: #1c2014;
+      --fg: #f4f1e6;
+      --dim: #b7b49f;
+      --line: #3a412c;
+      --acc: #eaff6a;
+      --acc2: #7dffc3;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; background: var(--bg); color: var(--fg); }
     body {
       min-height: 100dvh;
-      font-family: "IBM Plex Mono", ui-monospace, monospace;
-      font-size: 14px;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      font-size: 17px;
       line-height: 1.55;
     }
     body::before {
@@ -32,8 +32,8 @@
       inset: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(214,255,74,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(214,255,74,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(234,255,106,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(234,255,106,0.05) 1px, transparent 1px);
       background-size: 28px 28px;
       mask-image: radial-gradient(ellipse at 20% 0%, black, transparent 70%);
     }
@@ -51,68 +51,90 @@
       border-bottom: 1px solid var(--line);
       padding-bottom: 14px;
       margin-bottom: 28px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
     }
-    .brand { color: var(--acc); letter-spacing: 0.18em; font-size: 11px; text-transform: uppercase; }
-    .live {
-      color: var(--acc2);
-      font-size: 11px;
-    }
+    .brand { color: var(--acc); text-transform: uppercase; font-weight: 600; }
+    .live { color: var(--acc2); }
     .live::before {
       content: "";
       display: inline-block;
-      width: 6px; height: 6px;
+      width: 7px; height: 7px;
       background: var(--acc2);
       border-radius: 50%;
       margin-right: 8px;
-      box-shadow: 0 0 8px var(--acc2);
+      box-shadow: 0 0 10px var(--acc2);
     }
     h1 {
-      font-family: "Instrument Serif", Georgia, serif;
-      font-size: clamp(52px, 16vw, 92px);
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(56px, 17vw, 96px);
       font-weight: 400;
-      line-height: 0.9;
+      line-height: 0.88;
       letter-spacing: -0.03em;
-      margin: 0 0 10px;
+      margin: 0 0 14px;
     }
     h1 em { font-style: italic; color: var(--acc); }
     .lede {
-      max-width: 34rem;
+      max-width: 36rem;
       color: var(--dim);
-      margin: 0 0 28px;
+      margin: 0 0 22px;
     }
     .rule {
       display: inline-block;
       border: 1px solid var(--acc);
+      background: rgba(234,255,106,0.08);
       color: var(--acc);
-      padding: 8px 12px;
-      margin-bottom: 36px;
+      padding: 10px 14px;
+      margin-bottom: 32px;
+      border-radius: 999px;
+      font-family: "Newsreader", Georgia, serif;
+      font-style: italic;
+      font-size: 18px;
     }
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
+    }
+    a.card {
+      text-decoration: none;
+      color: inherit;
     }
     article {
       background: var(--panel);
       border: 1px solid var(--line);
-      padding: 16px 16px 14px;
-      min-height: 148px;
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      min-height: 156px;
       display: flex;
       flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.15s, transform 0.15s;
+      transition: border-color 0.15s, transform 0.15s, background 0.15s;
     }
-    a.card:hover { border-color: var(--acc); transform: translateY(-2px); }
-    .idx { color: var(--acc); font-size: 11px; letter-spacing: 0.12em; }
+    a.card:hover article {
+      border-color: var(--acc);
+      background: #232918;
+      transform: translateY(-2px);
+    }
+    .idx {
+      color: var(--acc);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+    }
     article h2 {
-      font-family: "Instrument Serif", Georgia, serif;
-      font-size: 28px;
-      font-weight: 400;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 30px;
+      font-weight: 500;
       margin: 10px 0 8px;
+      letter-spacing: -0.02em;
     }
     article p { margin: 0; color: var(--dim); flex: 1; }
-    article .go { margin-top: 14px; color: var(--fg); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+    article .go {
+      margin-top: 16px;
+      color: var(--fg);
+      font-size: 13px;
+      font-weight: 600;
+    }
     .stack {
       margin-top: 28px;
       display: flex;
@@ -121,15 +143,16 @@
     }
     .stack span {
       border: 1px solid var(--line);
-      padding: 6px 10px;
+      background: var(--panel);
+      padding: 7px 12px;
       color: var(--dim);
-      font-size: 11px;
-      letter-spacing: 0.06em;
+      font-size: 13px;
+      border-radius: 999px;
     }
     footer {
       margin-top: 40px;
       color: var(--dim);
-      font-size: 12px;
+      font-size: 14px;
       display: flex;
       justify-content: space-between;
       gap: 12px;
