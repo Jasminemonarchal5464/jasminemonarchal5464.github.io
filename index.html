@@ -77,58 +77,43 @@
     }
     .bird {
       position: absolute;
-      width: 44px;
-      height: 20px;
+      color: #16324a;
+      opacity: 0.8;
+      font-size: 0;
     }
-    .bird svg { width: 100%; height: 100%; display: block; overflow: visible; }
-    .bird .l, .bird .r {
-      transform-box: fill-box;
-      transform-origin: 20px 12px;
-    }
-    .b1 .l, .b1 .r { animation: lflap 0.34s ease-in-out 9; }
-    .b1 .r { animation-name: rflap; }
-    .b2 .l, .b2 .r { animation: lflap 0.38s ease-in-out 0.2s 10; }
-    .b2 .r { animation-name: rflap; }
-    .b3 .l, .b3 .r { animation: lflap 0.3s ease-in-out 0.35s 9; }
-    .b3 .r { animation-name: rflap; }
+    .bird svg { display: block; }
     .b1 {
-      top: 52px;
-      animation: land1 3.6s cubic-bezier(0.15, 0.75, 0.2, 1) 1 forwards;
+      top: 54px;
+      width: 36px;
+      height: 14px;
+      animation: land1 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards;
     }
     .b2 {
       top: 76px;
-      width: 36px;
-      height: 16px;
-      animation: land2 4.2s cubic-bezier(0.15, 0.75, 0.2, 1) 0.2s 1 forwards;
+      width: 28px;
+      height: 11px;
+      opacity: 0.65;
+      animation: land2 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards;
     }
     .b3 {
-      top: 60px;
-      width: 32px;
-      height: 15px;
-      animation: land3 3.9s cubic-bezier(0.15, 0.75, 0.2, 1) 0.4s 1 forwards;
+      top: 62px;
+      width: 24px;
+      height: 10px;
+      opacity: 0.55;
+      animation: land3 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards;
     }
+    .b1 svg, .b2 svg, .b3 svg { width: 100%; height: 100%; }
     @keyframes land1 {
-      0%   { transform: translate3d(-70px, 10px, 0); }
-      70%  { transform: translate3d(40vw, -4px, 0); }
-      100% { transform: translate3d(48vw, 0, 0); }
+      from { transform: translate3d(-50px, 8px, 0); }
+      to   { transform: translate3d(48vw, 0, 0); }
     }
     @keyframes land2 {
-      0%   { transform: translate3d(-70px, 14px, 0); }
-      70%  { transform: translate3d(30vw, 4px, 0); }
-      100% { transform: translate3d(36vw, 0, 0); }
+      from { transform: translate3d(-50px, 10px, 0); }
+      to   { transform: translate3d(36vw, 0, 0); }
     }
     @keyframes land3 {
-      0%   { transform: translate3d(-70px, 6px, 0); }
-      70%  { transform: translate3d(54vw, -6px, 0); }
-      100% { transform: translate3d(61vw, 0, 0); }
-    }
-    @keyframes lflap {
-      0%, 100% { transform: rotate(8deg); }
-      50% { transform: rotate(-26deg); }
-    }
-    @keyframes rflap {
-      0%, 100% { transform: rotate(-8deg); }
-      50% { transform: rotate(26deg); }
+      from { transform: translate3d(-50px, 4px, 0); }
+      to   { transform: translate3d(60vw, 0, 0); }
     }
     .plane {
       position: absolute;
@@ -321,11 +306,11 @@
       .b3 { top: 54px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane, .bird, .bird .l, .bird .r { animation: none; }
+      .cloud, .plane, .bird { animation: none; }
       .plane { left: 42%; }
       .b1 { left: 48vw; }
       .b2 { left: 36vw; }
-      .b3 { left: 61vw; }
+      .b3 { left: 60vw; }
     }
   </style>
 </head>
@@ -340,21 +325,18 @@
 
   <div class="hud" aria-hidden="true">
     <div class="bird b1">
-      <svg viewBox="0 0 40 20" fill="none" stroke="#16324a" stroke-width="2.4" stroke-linecap="round">
-        <path class="l" d="M20 12 Q10 3 2 11"/>
-        <path class="r" d="M20 12 Q30 3 38 11"/>
+      <svg viewBox="0 0 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 10 L18 3 L34 10"/>
       </svg>
     </div>
     <div class="bird b2">
-      <svg viewBox="0 0 40 20" fill="none" stroke="#16324a" stroke-width="2.4" stroke-linecap="round">
-        <path class="l" d="M20 12 Q10 3 2 11"/>
-        <path class="r" d="M20 12 Q30 3 38 11"/>
+      <svg viewBox="0 0 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 10 L18 3 L34 10"/>
       </svg>
     </div>
     <div class="bird b3">
-      <svg viewBox="0 0 40 20" fill="none" stroke="#16324a" stroke-width="2.4" stroke-linecap="round">
-        <path class="l" d="M20 12 Q10 3 2 11"/>
-        <path class="r" d="M20 12 Q30 3 38 11"/>
+      <svg viewBox="0 0 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 10 L18 3 L34 10"/>
       </svg>
     </div>
     <div class="plane">
