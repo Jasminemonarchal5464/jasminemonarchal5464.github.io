@@ -89,9 +89,10 @@
       left: 0;
       display: flex;
       align-items: center;
-      width: 190px;
+      width: 188px;
       height: 40px;
-      will-change: transform;
+      offset-rotate: auto;
+      animation: ride linear infinite;
     }
     .f16 svg {
       width: 108px;
@@ -103,44 +104,34 @@
     }
     .f16 .contrail {
       height: 3px;
-      width: 78px;
+      width: 72px;
       border-radius: 2px;
       margin-right: 2px;
-      flex: 0 0 78px;
-      opacity: 0.92;
+      flex: 0 0 72px;
+      opacity: 0.9;
     }
-    .f1 { animation: aero1 8.5s linear infinite; }
-    .f2 { animation: aero2 10s linear infinite; animation-delay: -3.2s; }
+    .f1 {
+      offset-path: path("M -160 92 C 220 92 340 92 520 92 C 720 92 720 -8 520 -8 C 320 -8 320 92 520 92 C 780 92 1200 70 1500 78");
+      animation-duration: 9s;
+    }
+    .f2 {
+      offset-path: path("M 1500 128 C 1100 128 980 128 780 128 C 560 128 560 8 780 8 C 1000 8 1000 128 780 128 C 500 128 160 150 -200 140");
+      animation-duration: 10.5s;
+      animation-delay: -3.4s;
+    }
     .f2 svg { width: 92px; height: 32px; flex-basis: 92px; }
-    .f3 { animation: aero3 7.6s linear infinite; animation-delay: -5.4s; }
+    .f3 {
+      offset-path: path("M -160 160 C 180 150 280 40 460 40 C 640 40 700 150 860 150 C 1040 150 1120 50 1500 60");
+      animation-duration: 8.2s;
+      animation-delay: -5.6s;
+    }
     .f3 svg { width: 84px; height: 30px; flex-basis: 84px; }
-    .f1 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a 55%, #0a3a7a); }
-    .f2 .contrail { background: linear-gradient(90deg, transparent, #fff 55%, #fff); }
-    .f3 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a 55%, #0a3a7a); }
-    @keyframes aero1 {
-      0%   { transform: translate3d(-220px, 70px, 0) rotate(-8deg); }
-      18%  { transform: translate3d(28vw, 36px, 0) rotate(12deg); }
-      32%  { transform: translate3d(46vw, 150px, 0) rotate(90deg); }
-      46%  { transform: translate3d(38vw, 28px, 0) rotate(210deg); }
-      58%  { transform: translate3d(52vw, 88px, 0) rotate(12deg); }
-      78%  { transform: translate3d(82vw, 48px, 0) rotate(-10deg); }
-      100% { transform: translate3d(calc(100vw + 240px), 90px, 0) rotate(-6deg); }
-    }
-    @keyframes aero2 {
-      0%   { transform: translate3d(calc(100vw + 200px), 120px, 0) rotate(188deg) scaleX(-1); }
-      22%  { transform: translate3d(70vw, 44px, 0) rotate(200deg) scaleX(-1); }
-      40%  { transform: translate3d(48vw, 170px, 0) rotate(270deg) scaleX(-1); }
-      56%  { transform: translate3d(58vw, 30px, 0) rotate(400deg) scaleX(-1); }
-      74%  { transform: translate3d(28vw, 80px, 0) rotate(190deg) scaleX(-1); }
-      100% { transform: translate3d(-260px, 110px, 0) rotate(184deg) scaleX(-1); }
-    }
-    @keyframes aero3 {
-      0%   { transform: translate3d(-220px, 160px, 0) rotate(10deg); }
-      20%  { transform: translate3d(24vw, 90px, 0) rotate(-18deg); }
-      38%  { transform: translate3d(50vw, 20px, 0) rotate(-4deg); }
-      52%  { transform: translate3d(62vw, 130px, 0) rotate(70deg); }
-      68%  { transform: translate3d(44vw, 50px, 0) rotate(-16deg); }
-      100% { transform: translate3d(calc(100vw + 240px), 70px, 0) rotate(8deg); }
+    .f1 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a); }
+    .f2 .contrail { background: linear-gradient(90deg, transparent, #fff); }
+    .f3 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a); }
+    @keyframes ride {
+      from { offset-distance: 0%; }
+      to { offset-distance: 100%; }
     }
     .plane {
       position: absolute;
@@ -331,9 +322,6 @@
     @media (prefers-reduced-motion: reduce) {
       .cloud, .plane, .f16 { animation: none; }
       .plane { left: 42%; }
-      .f1 { left: 12vw; top: 48px; }
-      .f2 { left: 40vw; top: 72px; }
-      .f3 { left: 64vw; top: 40px; }
     }
   </style>
 </head>
