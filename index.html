@@ -77,10 +77,7 @@
     }
     .flock {
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 280px;
-      height: 64px;
+      inset: 0;
       overflow: hidden;
       opacity: 1;
       transition: opacity 0.2s linear;
@@ -88,57 +85,62 @@
     .flock.is-away { opacity: 0; }
     .f16 {
       position: absolute;
+      top: 0;
       left: 0;
       display: flex;
       align-items: center;
-      height: 18px;
+      width: 190px;
+      height: 40px;
+      will-change: transform;
     }
     .f16 svg {
-      width: 52px;
-      height: 18px;
+      width: 108px;
+      height: 38px;
       display: block;
       overflow: visible;
-      flex: 0 0 52px;
+      flex: 0 0 108px;
+      filter: drop-shadow(0 4px 4px rgba(11,42,74,0.22));
     }
     .f16 .contrail {
-      height: 2px;
-      width: 0;
+      height: 3px;
+      width: 78px;
       border-radius: 2px;
       margin-right: 2px;
-      opacity: 0.9;
+      flex: 0 0 78px;
+      opacity: 0.92;
     }
-    .f1 { top: 8px; animation: land1 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards; }
-    .f2 { top: 28px; animation: land2 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards; }
-    .f2 svg { width: 44px; height: 16px; flex-basis: 44px; }
-    .f3 { top: 18px; animation: land3 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards; }
-    .f3 svg { width: 40px; height: 14px; flex-basis: 40px; }
-    .f1 .contrail {
-      background: linear-gradient(90deg, transparent, #0a3a7a);
-      animation: trail 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards;
+    .f1 { animation: aero1 8.5s linear infinite; }
+    .f2 { animation: aero2 10s linear infinite; animation-delay: -3.2s; }
+    .f2 svg { width: 92px; height: 32px; flex-basis: 92px; }
+    .f3 { animation: aero3 7.6s linear infinite; animation-delay: -5.4s; }
+    .f3 svg { width: 84px; height: 30px; flex-basis: 84px; }
+    .f1 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a 55%, #0a3a7a); }
+    .f2 .contrail { background: linear-gradient(90deg, transparent, #fff 55%, #fff); }
+    .f3 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a 55%, #0a3a7a); }
+    @keyframes aero1 {
+      0%   { transform: translate3d(-220px, 70px, 0) rotate(-8deg); }
+      18%  { transform: translate3d(28vw, 36px, 0) rotate(12deg); }
+      32%  { transform: translate3d(46vw, 150px, 0) rotate(90deg); }
+      46%  { transform: translate3d(38vw, 28px, 0) rotate(210deg); }
+      58%  { transform: translate3d(52vw, 88px, 0) rotate(12deg); }
+      78%  { transform: translate3d(82vw, 48px, 0) rotate(-10deg); }
+      100% { transform: translate3d(calc(100vw + 240px), 90px, 0) rotate(-6deg); }
     }
-    .f2 .contrail {
-      background: linear-gradient(90deg, transparent, #fff);
-      animation: trail 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards;
+    @keyframes aero2 {
+      0%   { transform: translate3d(calc(100vw + 200px), 120px, 0) rotate(188deg) scaleX(-1); }
+      22%  { transform: translate3d(70vw, 44px, 0) rotate(200deg) scaleX(-1); }
+      40%  { transform: translate3d(48vw, 170px, 0) rotate(270deg) scaleX(-1); }
+      56%  { transform: translate3d(58vw, 30px, 0) rotate(400deg) scaleX(-1); }
+      74%  { transform: translate3d(28vw, 80px, 0) rotate(190deg) scaleX(-1); }
+      100% { transform: translate3d(-260px, 110px, 0) rotate(184deg) scaleX(-1); }
     }
-    .f3 .contrail {
-      background: linear-gradient(90deg, transparent, #0a3a7a);
-      animation: trail 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards;
-    }
-    @keyframes land1 {
-      from { transform: translate3d(-80px, 6px, 0); }
-      to   { transform: translate3d(110px, 0, 0); }
-    }
-    @keyframes land2 {
-      from { transform: translate3d(-80px, 8px, 0); }
-      to   { transform: translate3d(40px, 0, 0); }
-    }
-    @keyframes land3 {
-      from { transform: translate3d(-80px, 3px, 0); }
-      to   { transform: translate3d(160px, 0, 0); }
-    }
-    @keyframes trail {
-      from { width: 8px; opacity: 0.35; }
-      to   { width: 56px; opacity: 0.95; }
+    @keyframes aero3 {
+      0%   { transform: translate3d(-220px, 160px, 0) rotate(10deg); }
+      20%  { transform: translate3d(24vw, 90px, 0) rotate(-18deg); }
+      38%  { transform: translate3d(50vw, 20px, 0) rotate(-4deg); }
+      52%  { transform: translate3d(62vw, 130px, 0) rotate(70deg); }
+      68%  { transform: translate3d(44vw, 50px, 0) rotate(-16deg); }
+      100% { transform: translate3d(calc(100vw + 240px), 70px, 0) rotate(8deg); }
     }
     .plane {
       position: absolute;
@@ -324,15 +326,14 @@
       header { margin-bottom: 22px; }
       article { min-height: 0; }
       .plane { top: 102px; }
-      .flock { width: 200px; height: 52px; }
+      .f16 svg { width: 78px; height: 28px; flex-basis: 78px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane, .f16, .contrail { animation: none; }
+      .cloud, .plane, .f16 { animation: none; }
       .plane { left: 42%; }
-      .f1 { left: 110px; }
-      .f2 { left: 40px; }
-      .f3 { left: 160px; }
-      .contrail { width: 56px; }
+      .f1 { left: 12vw; top: 48px; }
+      .f2 { left: 40vw; top: 72px; }
+      .f3 { left: 64vw; top: 40px; }
     }
   </style>
 </head>
@@ -343,6 +344,9 @@
     <div class="cloud c3"></div>
     <div class="cloud c4"></div>
     <div class="cloud c5"></div>
+  </div>
+
+  <div class="hud" aria-hidden="true">
     <div class="flock" id="flock">
       <div class="f16 f1">
         <span class="contrail"></span>
@@ -375,9 +379,6 @@
         </svg>
       </div>
     </div>
-  </div>
-
-  <div class="hud" aria-hidden="true">
     <div class="plane">
       <span class="trail"></span>
       <svg viewBox="0 0 220 64" xmlns="http://www.w3.org/2000/svg">
