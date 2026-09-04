@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jonard</title>
+  <meta name="description" content="Local-first AI tools. Consumer GPU." />
+  <style>
+    :root {
+      --bg: #0c0d0c;
+      --fg: #e8e6df;
+      --dim: #8a877c;
+      --line: #2a2b28;
+      --acc: #c8f04d;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--fg); }
+    body {
+      font: 16px/1.5 ui-sans-serif, system-ui, sans-serif;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin: 0 0 8px;
+    }
+    .tag { color: var(--dim); margin: 0 0 40px; }
+    h2 {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin: 40px 0 12px;
+      font-weight: 600;
+    }
+    p { margin: 0 0 12px; }
+    .rule { color: var(--acc); }
+    a { color: var(--fg); text-underline-offset: 3px; }
+    a:hover { color: var(--acc); }
+    .list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+    .list li { border-bottom: 1px solid var(--line); }
+    .list a {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      text-decoration: none;
+    }
+    .list strong { font-weight: 600; }
+    .list span { color: var(--dim); }
+    footer {
+      margin-top: 48px;
+      color: var(--dim);
+      font-size: 14px;
+    }
+    footer a { color: var(--dim); }
+    @media (max-width: 540px) {
+      .list a { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Jonard</h1>
+  <p class="tag">Local-first AI tools. Consumer GPU. No cloud required to chat.</p>
+
+  <p>I build the product around the model: routing, tools, memory, receipts, training data. The model is swappable. The layer is not.</p>
+  <p class="rule">If I cannot eval it, I do not train it.</p>
+
+  <h2>Work</h2>
+  <ul class="list">
+    <li>
+      <a href="https://github.com/Jonardi123/nebula">
+        <strong>Nebula</strong>
+        <span>Local AI operating layer on LM Studio. Windows + iPhone.</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Jonardi123/failtrace">
+        <strong>failtrace</strong>
+        <span>Failure-recovery traces, harness, SFT pack for small agents.</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Jonardi123/local-chat-studio">
+        <strong>local-chat-studio</strong>
+        <span>Chat client for local OpenAI-compatible servers.</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Jonardi123/RIFF">
+        <strong>RIFF</strong>
+        <span>Local YouTube to MP3. Loopback only.</span>
+      </a>
+    </li>
+  </ul>
+
+  <h2>Stack</h2>
+  <p>Python · TypeScript · Tauri · React · LM Studio · QLoRA / GGUF · RX 570</p>
+
+  <footer>
+    <a href="https://github.com/Jonardi123">github.com/Jonardi123</a>
+  </footer>
+</body>
+</html>
