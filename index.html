@@ -77,50 +77,58 @@
     }
     .bird {
       position: absolute;
-      width: 42px;
-      height: 22px;
-      color: #16324a;
+      width: 44px;
+      height: 20px;
     }
     .bird svg { width: 100%; height: 100%; display: block; overflow: visible; }
-    .bird path {
+    .bird .l, .bird .r {
       transform-box: fill-box;
-      transform-origin: center;
-      animation: flap 0.32s ease-in-out 10;
+      transform-origin: 20px 12px;
     }
+    .b1 .l, .b1 .r { animation: lflap 0.34s ease-in-out 9; }
+    .b1 .r { animation-name: rflap; }
+    .b2 .l, .b2 .r { animation: lflap 0.38s ease-in-out 0.2s 10; }
+    .b2 .r { animation-name: rflap; }
+    .b3 .l, .b3 .r { animation: lflap 0.3s ease-in-out 0.35s 9; }
+    .b3 .r { animation-name: rflap; }
     .b1 {
-      top: 56px;
-      animation: land1 3.4s cubic-bezier(0.12, 0.72, 0.18, 1) 1 forwards;
+      top: 52px;
+      animation: land1 3.6s cubic-bezier(0.15, 0.75, 0.2, 1) 1 forwards;
     }
     .b2 {
-      top: 78px;
-      width: 34px;
-      height: 18px;
-      animation: land2 4.1s cubic-bezier(0.12, 0.72, 0.18, 1) 0.25s 1 forwards;
+      top: 76px;
+      width: 36px;
+      height: 16px;
+      animation: land2 4.2s cubic-bezier(0.15, 0.75, 0.2, 1) 0.2s 1 forwards;
     }
     .b3 {
-      top: 64px;
-      width: 30px;
-      height: 16px;
-      animation: land3 3.8s cubic-bezier(0.12, 0.72, 0.18, 1) 0.45s 1 forwards;
+      top: 60px;
+      width: 32px;
+      height: 15px;
+      animation: land3 3.9s cubic-bezier(0.15, 0.75, 0.2, 1) 0.4s 1 forwards;
     }
     @keyframes land1 {
-      0%   { transform: translate3d(-60px, 12px, 0); }
-      55%  { transform: translate3d(38vw, -6px, 0); }
-      100% { transform: translate3d(46vw, 0, 0); }
+      0%   { transform: translate3d(-70px, 10px, 0); }
+      70%  { transform: translate3d(40vw, -4px, 0); }
+      100% { transform: translate3d(48vw, 0, 0); }
     }
     @keyframes land2 {
-      0%   { transform: translate3d(-60px, 16px, 0); }
-      55%  { transform: translate3d(28vw, 4px, 0); }
-      100% { transform: translate3d(34vw, 0, 0); }
+      0%   { transform: translate3d(-70px, 14px, 0); }
+      70%  { transform: translate3d(30vw, 4px, 0); }
+      100% { transform: translate3d(36vw, 0, 0); }
     }
     @keyframes land3 {
-      0%   { transform: translate3d(-60px, 8px, 0); }
-      55%  { transform: translate3d(52vw, -8px, 0); }
-      100% { transform: translate3d(58vw, 0, 0); }
+      0%   { transform: translate3d(-70px, 6px, 0); }
+      70%  { transform: translate3d(54vw, -6px, 0); }
+      100% { transform: translate3d(61vw, 0, 0); }
     }
-    @keyframes flap {
-      0%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(0.2); }
+    @keyframes lflap {
+      0%, 100% { transform: rotate(8deg); }
+      50% { transform: rotate(-26deg); }
+    }
+    @keyframes rflap {
+      0%, 100% { transform: rotate(-8deg); }
+      50% { transform: rotate(26deg); }
     }
     .plane {
       position: absolute;
@@ -308,16 +316,16 @@
       header { margin-bottom: 22px; }
       article { min-height: 0; }
       .plane { top: 102px; }
-      .b1 { top: 48px; }
-      .b2 { top: 70px; }
-      .b3 { top: 56px; }
+      .b1 { top: 46px; }
+      .b2 { top: 68px; }
+      .b3 { top: 54px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane, .bird, .bird path { animation: none; }
+      .cloud, .plane, .bird, .bird .l, .bird .r { animation: none; }
       .plane { left: 42%; }
-      .b1 { left: 46vw; }
-      .b2 { left: 34vw; }
-      .b3 { left: 58vw; }
+      .b1 { left: 48vw; }
+      .b2 { left: 36vw; }
+      .b3 { left: 61vw; }
     }
   </style>
 </head>
@@ -332,13 +340,22 @@
 
   <div class="hud" aria-hidden="true">
     <div class="bird b1">
-      <svg viewBox="0 0 28 16" fill="currentColor"><path d="M1 9C8 1 12 1 14 8C16 1 20 1 27 9C20 6.5 16.5 9 14 13C11.5 9 8 6.5 1 9Z"/></svg>
+      <svg viewBox="0 0 40 20" fill="none" stroke="#16324a" stroke-width="2.4" stroke-linecap="round">
+        <path class="l" d="M20 12 Q10 3 2 11"/>
+        <path class="r" d="M20 12 Q30 3 38 11"/>
+      </svg>
     </div>
     <div class="bird b2">
-      <svg viewBox="0 0 28 16" fill="currentColor"><path d="M1 9C8 1 12 1 14 8C16 1 20 1 27 9C20 6.5 16.5 9 14 13C11.5 9 8 6.5 1 9Z"/></svg>
+      <svg viewBox="0 0 40 20" fill="none" stroke="#16324a" stroke-width="2.4" stroke-linecap="round">
+        <path class="l" d="M20 12 Q10 3 2 11"/>
+        <path class="r" d="M20 12 Q30 3 38 11"/>
+      </svg>
     </div>
     <div class="bird b3">
-      <svg viewBox="0 0 28 16" fill="currentColor"><path d="M1 9C8 1 12 1 14 8C16 1 20 1 27 9C20 6.5 16.5 9 14 13C11.5 9 8 6.5 1 9Z"/></svg>
+      <svg viewBox="0 0 40 20" fill="none" stroke="#16324a" stroke-width="2.4" stroke-linecap="round">
+        <path class="l" d="M20 12 Q10 3 2 11"/>
+        <path class="r" d="M20 12 Q30 3 38 11"/>
+      </svg>
     </div>
     <div class="plane">
       <span class="trail"></span>
