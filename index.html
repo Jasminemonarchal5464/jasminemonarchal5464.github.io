@@ -13,10 +13,8 @@
       --bg0: #7ec8ff;
       --bg1: #c9e8ff;
       --bg2: #eaf6ff;
-      --panel: rgba(255,255,255,0.22);
       --fg: #0b2a4a;
       --dim: #2f5474;
-      --line: rgba(255,255,255,0.55);
       --acc: #0b6bff;
       --acc2: #4db2ff;
     }
@@ -74,29 +72,43 @@
     }
     .plane {
       position: absolute;
-      top: 11%;
       left: 0;
-      width: 132px;
-      height: 36px;
-      animation: fly 13s linear infinite;
+      top: 0;
+      width: 148px;
+      height: 42px;
+      transform-origin: 70% 50%;
+      animation: sortie 18s linear infinite;
     }
     .plane svg {
-      width: 132px;
-      height: 36px;
+      width: 148px;
+      height: 42px;
       display: block;
-      filter: drop-shadow(0 5px 6px rgba(11,42,74,0.28));
+      filter: drop-shadow(0 6px 8px rgba(11,42,74,0.28));
     }
     .plane .trail {
       position: absolute;
-      right: 126px;
-      top: 18px;
-      width: 130px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95));
+      right: 140px;
+      top: 20px;
+      width: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,210,160,0.0), rgba(255,255,255,0.85));
+      animation: trail 18s linear infinite;
     }
-    @keyframes fly {
-      from { transform: translateX(-200px); }
-      to { transform: translateX(calc(100vw + 200px)); }
+    @keyframes trail {
+      0%, 22% { width: 0; opacity: 0; }
+      38% { width: 70px; opacity: 0.7; }
+      55%, 100% { width: 120px; opacity: 1; }
+    }
+    @keyframes sortie {
+      0%   { transform: translate3d(-180px, 78vh, 0) rotate(0deg) scale(0.92); }
+      20%  { transform: translate3d(18vw, 78vh, 0) rotate(0deg) scale(0.92); }
+      28%  { transform: translate3d(28vw, 62vh, 0) rotate(-12deg) scale(0.96); }
+      40%  { transform: translate3d(46vw, 18vh, 0) rotate(-4deg) scale(1); }
+      52%  { transform: translate3d(58vw, 14vh, 0) rotate(0deg) scale(1); }
+      68%  { transform: translate3d(74vw, 16vh, 0) rotate(55deg) scale(1); }
+      82%  { transform: translate3d(88vw, 20vh, 0) rotate(90deg) scale(1); }
+      100% { transform: translate3d(calc(100vw + 200px), 22vh, 0) rotate(90deg) scale(1); }
     }
     .wrap {
       max-width: 860px;
@@ -251,8 +263,8 @@
       article { min-height: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cloud, .plane { animation: none; }
-      .plane { left: 58%; }
+      .cloud, .plane, .plane .trail { animation: none; }
+      .plane { left: 54%; top: 12%; }
     }
   </style>
 </head>
@@ -265,10 +277,27 @@
     <div class="cloud c5"></div>
     <div class="plane">
       <span class="trail"></span>
-      <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#2a3544" d="M160 20 L138 18.6 L118 17.8 L104 14.2 L96 17.4 L78 17.8 L52 33 L60 18.2 L28 18.6 L18 6 L24 18.8 L10 18.4 L2 16.8 L0 20 L2 23.2 L10 21.6 L24 21.2 L18 34 L28 21.4 L60 21.8 L52 7 L78 22.2 L96 22.6 L104 25.8 L118 22.2 L138 21.4 Z"/>
-        <path fill="#4a5b70" d="M118 17.8 L104 14.2 L96 17.4 L118 17.8 Z"/>
-        <path fill="#1a222c" d="M24 18.8 L18 6 L16 18.9 Z"/>
+      <svg viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8b94a0"/>
+            <stop offset="0.45" stop-color="#6d7682"/>
+            <stop offset="1" stop-color="#c5ccd3"/>
+          </linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9fd4e8"/>
+            <stop offset="1" stop-color="#1a3c4c"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#skin)" stroke="#4a535e" stroke-width="0.6" d="M198 26 L172 24.2 L148 23.2 L132 18.4 L122 23 L98 23.4 L64 44 L74 23.8 L36 24.4 L24 8 L32 24.6 L14 24.2 L4 22 L1 26 L4 30 L14 27.8 L32 27.4 L24 44 L36 27.6 L74 28.2 L64 8 L98 28.6 L122 29 L132 33.6 L148 28.8 L172 27.8 Z"/>
+        <path fill="#5b646f" d="M148 23.2 L132 18.4 L122 23 L148 23.2 Z"/>
+        <path fill="url(#glass)" d="M148 23.2 L138 20.2 L128 23.1 L138 24.2 Z"/>
+        <path fill="#3e4752" d="M32 24.6 L24 8 L22 24.7 Z"/>
+        <path fill="#3e4752" d="M32 27.4 L24 44 L22 27.3 Z"/>
+        <rect x="2" y="23.2" width="8" height="5.6" rx="0.6" fill="#2b333c"/>
+        <rect x="2.4" y="24" width="3" height="4" fill="#ffb36a" opacity="0.85"/>
+        <circle cx="108" cy="26" r="2.1" fill="#3d4a8a"/>
+        <path d="M108 24.2 L108.6 25.6 L110.2 25.6 L108.9 26.5 L109.4 28 L108 27.2 L106.6 28 L107.1 26.5 L105.8 25.6 L107.4 25.6 Z" fill="#e8eef4"/>
       </svg>
     </div>
   </div>
