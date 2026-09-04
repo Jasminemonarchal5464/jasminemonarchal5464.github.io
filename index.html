@@ -75,13 +75,23 @@
       from { transform: translate3d(-30vw, 0, 0); }
       to { transform: translate3d(110vw, 0, 0); }
     }
+    .flock {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 64px;
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity 0.2s linear;
+    }
+    .flock.is-away { opacity: 0; }
     .f16 {
       position: absolute;
       left: 0;
       display: flex;
       align-items: center;
       height: 18px;
-      z-index: 1;
     }
     .f16 svg {
       width: 52px;
@@ -97,10 +107,10 @@
       margin-right: 2px;
       opacity: 0.9;
     }
-    .f1 { top: 18px; animation: land1 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards; }
-    .f2 { top: 36px; animation: land2 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards; }
+    .f1 { top: 8px; animation: land1 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards; }
+    .f2 { top: 28px; animation: land2 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s 1 forwards; }
     .f2 svg { width: 44px; height: 16px; flex-basis: 44px; }
-    .f3 { top: 26px; animation: land3 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards; }
+    .f3 { top: 18px; animation: land3 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards; }
     .f3 svg { width: 40px; height: 14px; flex-basis: 40px; }
     .f1 .contrail {
       background: linear-gradient(90deg, transparent, #0a3a7a);
@@ -115,20 +125,20 @@
       animation: trail 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s 1 forwards;
     }
     @keyframes land1 {
-      from { transform: translate3d(-90px, 6px, 0); }
-      to   { transform: translate3d(calc(100vw - 168px), 0, 0); }
+      from { transform: translate3d(-80px, 6px, 0); }
+      to   { transform: translate3d(110px, 0, 0); }
     }
     @keyframes land2 {
-      from { transform: translate3d(-90px, 8px, 0); }
-      to   { transform: translate3d(calc(100vw - 230px), 0, 0); }
+      from { transform: translate3d(-80px, 8px, 0); }
+      to   { transform: translate3d(40px, 0, 0); }
     }
     @keyframes land3 {
-      from { transform: translate3d(-90px, 3px, 0); }
-      to   { transform: translate3d(calc(100vw - 128px), 0, 0); }
+      from { transform: translate3d(-80px, 3px, 0); }
+      to   { transform: translate3d(160px, 0, 0); }
     }
     @keyframes trail {
       from { width: 8px; opacity: 0.35; }
-      to   { width: 72px; opacity: 0.95; }
+      to   { width: 56px; opacity: 0.95; }
     }
     .plane {
       position: absolute;
@@ -229,15 +239,13 @@
     article {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(165deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.26) 100%);
+      background: linear-gradient(165deg, rgba(255,255,255,0.72) 0%, rgba(232,244,255,0.82) 48%, rgba(255,255,255,0.7) 100%);
       border: 1px solid rgba(255,255,255,0.62);
       border-radius: 22px;
       padding: 18px 18px 16px;
       min-height: 156px;
       display: flex;
       flex-direction: column;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.85),
         inset 0 -1px 0 rgba(11,42,74,0.06),
@@ -316,17 +324,15 @@
       header { margin-bottom: 22px; }
       article { min-height: 0; }
       .plane { top: 102px; }
-      .f1 { top: 8px; }
-      .f2 { top: 24px; }
-      .f3 { top: 16px; }
+      .flock { width: 200px; height: 52px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .cloud, .plane, .f16, .contrail { animation: none; }
       .plane { left: 42%; }
-      .f1 { left: calc(100vw - 168px); }
-      .f2 { left: calc(100vw - 230px); }
-      .f3 { left: calc(100vw - 128px); }
-      .contrail { width: 72px; }
+      .f1 { left: 110px; }
+      .f2 { left: 40px; }
+      .f3 { left: 160px; }
+      .contrail { width: 56px; }
     }
   </style>
 </head>
@@ -337,35 +343,37 @@
     <div class="cloud c3"></div>
     <div class="cloud c4"></div>
     <div class="cloud c5"></div>
-    <div class="f16 f1">
-      <span class="contrail"></span>
-      <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-        <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
-        <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
-        <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
-        <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
-        <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
-      </svg>
-    </div>
-    <div class="f16 f2">
-      <span class="contrail"></span>
-      <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-        <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
-        <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
-        <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
-        <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
-        <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
-      </svg>
-    </div>
-    <div class="f16 f3">
-      <span class="contrail"></span>
-      <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-        <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
-        <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
-        <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
-        <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
-        <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
-      </svg>
+    <div class="flock" id="flock">
+      <div class="f16 f1">
+        <span class="contrail"></span>
+        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+          <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
+          <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
+          <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
+          <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
+          <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
+        </svg>
+      </div>
+      <div class="f16 f2">
+        <span class="contrail"></span>
+        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+          <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
+          <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
+          <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
+          <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
+          <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
+        </svg>
+      </div>
+      <div class="f16 f3">
+        <span class="contrail"></span>
+        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+          <polygon fill="#6d7784" points="22,16 8,26 28,16"/>
+          <polygon fill="#4d5660" points="16,14 10,4 22,14"/>
+          <polygon fill="#8b95a1" points="78,14 52,12 36,11 28,8 18,12 6,13 2,14 6,16 18,16 28,20 36,17 52,16"/>
+          <polygon fill="#6ec4e0" points="50,12 42,8 34,12"/>
+          <rect x="2" y="13" width="6" height="3" fill="#ff9a4a"/>
+        </svg>
+      </div>
     </div>
   </div>
 
@@ -390,7 +398,7 @@
     </div>
   </div>
 
-  <div class="wrap">
+  <div class="wrap" id="page">
     <header>
       <div class="brand">local layer / 570</div>
       <div class="live">eval first</div>
@@ -445,5 +453,17 @@
       <a href="https://github.com/Jonardi123">github.com/Jonardi123</a>
     </footer>
   </div>
+  <script>
+    (function () {
+      var page = document.getElementById("page");
+      var flock = document.getElementById("flock");
+      if (!page || !flock) return;
+      function sync() {
+        flock.classList.toggle("is-away", page.scrollTop > 40);
+      }
+      page.addEventListener("scroll", sync, { passive: true });
+      sync();
+    })();
+  </script>
 </body>
 </html>
