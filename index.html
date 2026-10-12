@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lukas Pfalz</title>
+<meta name="description" content="Lukas Pfalz builds the stack that learned policies run on: ROS 2 on NVIDIA Jetson, models exported to TensorRT, sensor fusion, fleet telemetry pipelines. Now working on sim-to-real policy learning on a robot arm with Isaac Lab and LeRobot. CS student at UMGC, class of 2027. Seeking a Summer 2027 robot learning or autonomy internship or a Fall 2027 co-op.">
+<meta property="og:title" content="Lukas Pfalz, robot learning and autonomy software">
+<meta property="og:description" content="ROS 2 and TensorRT on NVIDIA Jetson, plus sim-to-real policy learning on a robot arm. Seeking a Summer 2027 robot learning or autonomy internship or a Fall 2027 co-op.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lukas-pfalz.github.io/">
+<meta name="theme-color" content="#fafaf8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fafaf8'/%3E%3Cpath d='M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5' fill='none' stroke='%231e9e5a' stroke-width='3' stroke-linecap='round'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23000'/%3E%3C/svg%3E">
+
+<!--
+  HOW TO EDIT THIS PAGE (no tools needed)
+  1. Every piece of text is plain HTML below. Change the words, keep the tags.
+  2. Lines marked  CONFIRM  are claims you should verify against your resume before leaving.
+  3. Lines marked  OPTIONAL  can be deleted entirely (delete from the opening tag to the matching closing tag).
+  4. Media: each project has a commented-out <figure>. Put the image in a folder called "media" in the
+     same repo, uncomment the figure, and set src and alt. Keep images under ~300 KB (1200 px wide JPEG
+     at quality 70 to 80 is plenty). Keep videos under ~8 MB, always with preload="none" and a poster.
+  5. Visit counting: see the GoatCounter block at the very bottom.
+  6. The "Now" section is the one to update every week or two. A dated status line is what makes it credible.
+-->
+
+<style>
+  :root {
+    --paper: #fafaf8;
+    --ink: #000000;
+    --ink-2: #4a4a46;
+    --rule: #d9d9d3;
+    --tint: #f1f1ec;
+    --accent: #1e9e5a;
+    --accent-ink: #157a45;
+    --sans: "Avenir Next", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --measure: 40rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #121413;
+      --ink: #f2f2ee;
+      --ink-2: #b4b4ad;
+      --rule: #2e302e;
+      --tint: #1b1e1c;
+      --accent: #35c47a;
+      --accent-ink: #5fd698;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; font-size: 17px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  main { max-width: var(--measure); margin: 0 auto; padding: 0 1.25rem 4rem; }
+  a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  p { margin: 0 0 1rem; }
+  code { font-family: var(--mono); font-size: 0.92em; }
+  h1, h2, h3 { line-height: 1.15; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+  h2 { font-size: 1.35rem; margin: 2.25rem 0 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  h3 { font-size: 1.15rem; margin: 0 0 0.35rem; }
+  ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+  li { margin: 0 0 0.4rem; }
+  .lead { color: var(--ink-2); margin: -0.5rem 0 1.25rem; }
+  .nw { white-space: nowrap; }
+
+  /* Hero: everything a recruiter needs before scrolling. */
+  .hero { padding-top: 2.25rem; }
+  .target {
+    position: relative;
+    display: inline-block;
+    padding: 0.9rem 1.1rem 0.75rem;
+    margin: 1.1rem 0 1rem;
+    max-width: 100%;
+  }
+  .target::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--accent);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .target .tag {
+    position: absolute;
+    top: -0.95rem;
+    left: -2px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.2;
+    padding: 0.22rem 0.5rem;
+    border-radius: 2px 2px 0 0;
+    white-space: nowrap;
+  }
+  @media (prefers-color-scheme: dark) { .target .tag { color: #0c0f0d; } }
+  .hero h1 { font-size: clamp(2rem, 8vw, 2.75rem); font-weight: 700; }
+  .hero .role { font-size: 1.15rem; font-weight: 600; margin: 0; color: var(--ink); text-wrap: balance; }
+  .hero .pitch { font-size: 1.05rem; max-width: 34rem; }
+  .status { color: var(--ink-2); font-size: 0.95rem; margin: 0 0 1.25rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 0.5rem; }
+  .btn {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn:hover { border-color: var(--accent); }
+  .btn.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* One page-load moment: the box locks on. Nothing else moves. */
+  @media (prefers-reduced-motion: no-preference) {
+    .target::before { animation: lock 0.6s cubic-bezier(.2,.8,.2,1) both; }
+    .target .tag { animation: tagin 0.3s 0.5s ease-out both; }
+    @keyframes lock { from { inset: -14px; opacity: 0; } to { inset: 0; opacity: 1; } }
+    @keyframes tagin { from { opacity: 0; } to { opacity: 1; } }
+  }
+
+  /* Project cards: a short description, then a spec strip like a datasheet. */
+  .project { padding: 1.5rem 0; }
+  .project + .project { border-top: 1px solid var(--rule); }
+  h2 + .project, .lead + .project { padding-top: 0.25rem; }
+  .project .when { color: var(--ink-2); font-size: 0.9rem; margin: 0 0 0.6rem; }
+  .project .what { margin: 0 0 0.9rem; }
+  .spec { margin: 0 0 0.9rem; border-top: 1px solid var(--rule); }
+  .spec .row { display: flex; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--rule); font-size: 0.95rem; }
+  .spec .k { flex: 0 0 5.5rem; color: var(--ink-2); }
+  .spec .v { flex: 1 1 auto; margin: 0; }
+  .note { font-size: 0.9rem; color: var(--ink-2); margin: 0; }
+  .links { font-size: 0.95rem; margin: 0.6rem 0 0; }
+  .links a + a { margin-left: 1rem; }
+  figure.media { margin: 0 0 1rem; }
+  figure.media img, figure.media video { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--tint); }
+  figure.media figcaption { font-size: 0.85rem; color: var(--ink-2); margin-top: 0.35rem; }
+
+  /* Compact lists for the rest. */
+  .also li, .background li { margin-bottom: 0.55rem; }
+  .skills { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; list-style: none; }
+  .skills li { margin: 0; padding: 0.25rem 0.6rem; background: var(--tint); border-radius: 3px; font-size: 0.9rem; }
+  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 0.9rem; }
+  footer p { margin: 0 0 0.5rem; }
+  @media (max-width: 480px) {
+    .actions { display: grid; grid-template-columns: 1fr 1fr; }
+    .btn { text-align: center; }
+  }
+  @media (min-width: 600px) {
+    html { font-size: 18px; }
+    .hero { padding-top: 4rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header class="hero">
+    <div class="target">
+      <span class="tag" aria-hidden="true">lukas_pfalz  0.99</span>
+      <h1>Lukas Pfalz</h1>
+      <p class="role">Robot learning and autonomy software</p>
+    </div>
+
+    <p class="pitch">I build the stack that learned policies run on: ROS 2 on NVIDIA Jetson, models exported to TensorRT, sensor fusion, and fleet telemetry pipelines. Now working on the next step, replacing hand-tuned control with policies trained in simulation, starting with a desktop arm, Isaac Lab, and LeRobot. Computer science student at UMGC, class of 2027.</p>
+
+    <!-- CONFIRM the citizenship line before publishing. Delete the sentence if it is not accurate. -->
+    <p class="status">Maryland, DC area. U.S. citizen. Available for a Summer 2027 internship or a <span class="nw">Fall 2027 co-op</span> in robot learning, autonomy, or perception. Open to relocation.</p>
+
+    <nav class="actions" aria-label="Contact">
+      <a class="btn primary" href="resume.pdf">Resume (PDF)</a>
+      <a class="btn" href="https://github.com/Lukas-Pfalz">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a>
+      <a class="btn" href="mailto:lukasbotzilla@gmail.com">Email</a>
+    </nav>
+  </header>
+
+  <h2 id="now">Now: robot learning</h2>
+  <article class="project">
+    <h3>Sim-to-real policy learning on a desktop arm</h3>
+    <p class="when">Started September 2026. Personal project.</p>
+    <p class="what">Train a policy in NVIDIA Isaac Lab, move it onto a physical SO-ARM101 arm, and measure how much of the simulated performance survives the transfer. Then collect teleoperated demonstrations with LeRobot and train an imitation-learning policy on a pick-and-place task.</p>
+    <!-- OPTIONAL media: the first sim video of the reach policy belongs here the day you have it.
+    <figure class="media">
+      <video controls preload="none" playsinline poster="media/reach-poster.jpg" width="1280" height="720">
+        <source src="media/reach.mp4" type="video/mp4">
+      </video>
+      <figcaption>Reach policy after N training iterations in Isaac Lab.</figcaption>
+    </figure>
+    -->
+    <div class="spec">
+      <div class="row"><span class="k">Platform</span><p class="v">SO-ARM101 arm (LeRobot kit). Isaac Sim and Isaac Lab for training on a desktop with an RTX 5070 Ti.</p></div>
+      <!-- CONFIRM the Done line, and date it. This is the line a hiring manager will ask about.
+           It is deliberately conservative. If more is true, upgrade it, for example:
+           "Arm assembled and calibrated. LeRobot set up on Linux. Reach-policy training running in Isaac Lab." -->
+      <div class="row"><span class="k">Done</span><p class="v">Arm assembled. Setting up LeRobot on Linux and the Isaac Lab reach task.</p></div>
+      <div class="row"><span class="k">Next</span><p class="v">Train a reach policy in Isaac Lab, transfer it to the real arm, and log success rate over repeated trials. Add domain randomization if the sim-to-real gap is large.</p></div>
+      <!-- CONFIRM the Plan row: keep it only if this is the plan you would describe at a booth. -->
+      <div class="row"><span class="k">Plan</span><p class="v">Teleop demonstrations through LeRobot, then an imitation-learning policy (ACT or Diffusion Policy) for pick-and-place, evaluated the same way.</p></div>
+    </div>
+    <p class="note">Last updated October 2026.</p>
+  </article>
+
+  <h2 id="work">Deployed work</h2>
+  <p class="lead">A learned policy is only useful once it runs on the robot. These projects are where I built the pieces around the model: the on-device runtime, the sensor fusion, the control loop, and the data pipeline.</p>
+
+  <article class="project">
+    <h3>Autonomous rover: detect, track, drive</h3>
+    <p class="when">KBR, data science intern, June to August 2026. Multi-Domain Autonomous Command and Control project.</p>
+    <p class="what">A ground rover that finds a target with its camera, keeps it in frame, and drives to it on its own, built for safety-operations use. It also carries an on-device voice agent so a person can talk to the robot without any cloud connection.</p>
+    <!-- OPTIONAL media. Uncomment and point at your own file in the media folder.
+    <figure class="media">
+      <img src="media/rover.jpg" alt="The rover tracking a target on a parking lot" width="1200" height="675" loading="lazy">
+      <figcaption>Rover during an approach test. Photo cleared for release by KBR.</figcaption>
+    </figure>
+    -->
+    <div class="spec">
+      <div class="row"><span class="k">Platform</span><p class="v">Jetson Orin NX, Astra Pro Plus RGB-D camera, ReSpeaker mic array, Ackermann-steered chassis</p></div>
+      <div class="row"><span class="k">Stack</span><p class="v">ROS 2 Humble. <code>YOLO26</code> exported to ONNX and TensorRT FP16. Single-target tracker. 20 Hz PID approach loop with IMU gyro feedback driving the steering. Local LLM voice agent for medical triage questions.</p></div>
+      <!-- CONFIRM: state exactly what you owned versus what teammates built. -->
+      <div class="row"><span class="k">My part</span><p class="v">Built the detection-to-steering loop and the voice pipeline, and tuned both on the vehicle.</p></div>
+      <div class="row"><span class="k">Result</span><p class="v">Closed loop from camera frame to steering command at 20 Hz, running on the Jetson.</p></div>
+    </div>
+    <p class="note">Employer project. Details here are limited to what is on my resume. Happy to go deeper in person.</p>
+  </article>
+
+  <article class="project">
+    <h3>Learned perception: a sonar-to-vision transformer</h3>
+    <p class="when">Independent research, December 2025 to present.</p>
+    <p class="what">Underwater robots lose their cameras in murky water. This transformer maps imaging-sonar returns into vision-style features so an AcTag fiducial detector keeps working when the cameras cannot see.</p>
+    <!-- OPTIONAL media
+    <figure class="media">
+      <img src="media/sonar.jpg" alt="Sonar frame beside the reconstructed vision-style feature map" width="1200" height="675" loading="lazy">
+      <figcaption>Left: raw sonar return. Right: features the detector sees.</figcaption>
+    </figure>
+    -->
+    <div class="spec">
+      <div class="row"><span class="k">Platform</span><p class="v">Jetson Orin Nano</p></div>
+      <div class="row"><span class="k">Stack</span><p class="v">PyTorch training. OpenCV and NumPy preprocessing to propose tag candidates. ONNX to TensorRT FP16. ROS 2 with <code>tf2</code> and the <code>robot_localization</code> EKF.</p></div>
+      <!-- CONFIRM or add a number: inference time per frame, detection rate in test footage, dataset size. -->
+      <div class="row"><span class="k">Status</span><p class="v">Running in FP16 on the Orin Nano. Detections feed the EKF for loop closure and pose estimation.</p></div>
+    </div>
+    <!-- OPTIONAL: add the repo link once the code is public.
+    <p class="links"><a href="https://github.com/Lukas-Pfalz/REPO">Code</a></p>
+    -->
+  </article>
+
+  <article class="project">
+    <h3>SLAM and path planning on a Jetson robot</h3>
+    <!-- CONFIRM dates for this project. -->
+    <p class="when">Personal project.</p>
+    <p class="what">A mobile robot that fuses LiDAR, camera, and IMU into a semantic occupancy grid and plans its own route through it.</p>
+    <div class="spec">
+      <div class="row"><span class="k">Platform</span><p class="v">Jetson Orin Nano with LiDAR, camera, and IMU</p></div>
+      <div class="row"><span class="k">Stack</span><p class="v">ROS 2 nodes for each stage. EKF sensor fusion. Semantic occupancy grid. A* planner. PyTorch to ONNX to TensorRT FP16 for the perception model.</p></div>
+      <!-- CONFIRM or add a number: map size, planning rate, success rate over N runs. -->
+      <div class="row"><span class="k">Result</span><p class="v">End-to-end autonomy on the robot, from sensors to planned path, with every stage as a separate ROS 2 node.</p></div>
+    </div>
+  </article>
+
+  <article class="project">
+    <h3>Autonomous-fleet telemetry pipeline</h3>
+    <!-- CONFIRM dates. Your resume lists Forterra as May 2025 to present. -->
+    <p class="when">Forterra, yard software intern, 2025.</p>
+    <p class="what">Autonomous yard vehicles produce a steady stream of telemetry. I built the pipeline that lands it in a database and the dashboards the team uses to see how the fleet is doing. Fleet learning starts with exactly this kind of logging: you cannot train on what you never recorded.</p>
+    <div class="spec">
+      <div class="row"><span class="k">Stack</span><p class="v">Dockerized Python ETL streaming into PostgreSQL with idempotent upserts and fault-tolerant batching. Grafana dashboards.</p></div>
+      <div class="row"><span class="k">Result</span><p class="v">Live views of vehicle uptime, autonomous versus manual miles, and mission success.</p></div>
+    </div>
+  </article>
+
+  <h2 id="also">Also</h2>
+  <ul class="also">
+    <li>Robotics@Maryland, Qubo AUV perception, August 2025 to January 2026: Jetson Orin vision pipeline with OpenCV and YOLO, tuned for real-time stability in competition.</li>
+    <li>TREC Lab, Virginia Tech: wiring on the ESCHER humanoid.</li>
+    <li>UMD BattleBots.</li>
+    <li>FIRST Robotics Team 4514, programming lead.</li>
+  </ul>
+
+  <h2 id="background">Background</h2>
+  <ul class="background">
+    <li>B.S. Computer Science, University of Maryland Global Campus, expected 2027. 4.0 GPA, Dean's List.</li>
+    <li>Earlier coursework in computer science and information science at the University of Maryland, College Park, 2021 to 2025.</li>
+    <!-- CONFIRM: interests are fair game for booth questions. Cut any you could not talk about for two minutes. -->
+    <li>Interested in imitation learning and vision-language-action models for manipulation, sim-to-real transfer, and learned perception for GPS-denied and low-visibility environments.</li>
+    <li>English (native), German (conversational).</li>
+  </ul>
+  <!-- CONFIRM: remove anything you would not want to be quizzed on at a booth. -->
+  <ul class="skills" aria-label="Tools">
+    <li>NVIDIA Isaac Sim and Isaac Lab</li><li>LeRobot</li><li>PyTorch</li><li>ROS 2 Humble</li><li>Python</li><li>ONNX</li><li>TensorRT</li><li>OpenCV</li><li>YOLO</li>
+    <li>Jetson Orin</li><li>Docker</li><li>PostgreSQL</li><li>Grafana</li><li>Linux</li><li>Git</li>
+  </ul>
+
+  <footer>
+    <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
+    <p>Updated October 2026.</p>
+  </footer>
+
+</main>
+
+<!--
+  VISIT COUNTING (optional, 5 minutes, free for personal sites):
+  1. Sign up at https://www.goatcounter.com and pick a code, e.g. lukaspfalz.
+  2. Replace YOURCODE below and remove the comment markers around the two script tags.
+  The path function keeps the query string, so card scans show up as "/?s=ausa" in your dashboard.
+
+<script>
+  window.goatcounter = { path: function(p) { return location.pathname + location.search; } };
+</script>
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+</body>
+</html>
