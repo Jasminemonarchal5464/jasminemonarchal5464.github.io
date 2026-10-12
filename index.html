@@ -3,323 +3,189 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lukas Pfalz</title>
-<meta name="description" content="Lukas Pfalz builds the stack that learned policies run on: ROS 2 on NVIDIA Jetson, models exported to TensorRT, sensor fusion, fleet telemetry pipelines. Now working on sim-to-real policy learning on a robot arm with Isaac Lab and LeRobot. CS student at UMGC, class of 2027. Seeking a Summer 2027 robot learning or autonomy internship or a Fall 2027 co-op.">
-<meta property="og:title" content="Lukas Pfalz, robot learning and autonomy software">
-<meta property="og:description" content="ROS 2 and TensorRT on NVIDIA Jetson, plus sim-to-real policy learning on a robot arm. Seeking a Summer 2027 robot learning or autonomy internship or a Fall 2027 co-op.">
+<title>Lukas Pfalz, robot learning and autonomy</title>
+<meta name="description" content="Lukas Pfalz builds robot software on real hardware: perception and control on NVIDIA Jetson, on-device language models, and sim-to-real robot learning. Contact: lukasbotzilla@gmail.com">
+<meta property="og:title" content="Lukas Pfalz, robot learning and autonomy">
+<meta property="og:description" content="Lukas Pfalz builds robot software on real hardware: perception and control on NVIDIA Jetson, on-device language models, and sim-to-real robot learning. Contact: lukasbotzilla@gmail.com">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://lukas-pfalz.github.io/">
 <meta name="theme-color" content="#fafaf8">
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fafaf8'/%3E%3Cpath d='M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5' fill='none' stroke='%231e9e5a' stroke-width='3' stroke-linecap='round'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23000'/%3E%3C/svg%3E">
-
-<!--
-  HOW TO EDIT THIS PAGE (no tools needed)
-  1. Every piece of text is plain HTML below. Change the words, keep the tags.
-  2. Lines marked  CONFIRM  are claims you should verify against your resume before leaving.
-  3. Lines marked  OPTIONAL  can be deleted entirely (delete from the opening tag to the matching closing tag).
-  4. Media: each project has a commented-out <figure>. Put the image in a folder called "media" in the
-     same repo, uncomment the figure, and set src and alt. Keep images under ~300 KB (1200 px wide JPEG
-     at quality 70 to 80 is plenty). Keep videos under ~8 MB, always with preload="none" and a poster.
-  5. Visit counting: see the GoatCounter block at the very bottom.
-  6. The "Now" section is the one to update every week or two. A dated status line is what makes it credible.
--->
-
-<style>
-  :root {
-    --paper: #fafaf8;
-    --ink: #000000;
-    --ink-2: #4a4a46;
-    --rule: #d9d9d3;
-    --tint: #f1f1ec;
-    --accent: #1e9e5a;
-    --accent-ink: #157a45;
-    --sans: "Avenir Next", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-    --measure: 40rem;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #121413;
-      --ink: #f2f2ee;
-      --ink-2: #b4b4ad;
-      --rule: #2e302e;
-      --tint: #1b1e1c;
-      --accent: #35c47a;
-      --accent-ink: #5fd698;
-    }
-  }
-
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; font-size: 17px; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  main { max-width: var(--measure); margin: 0 auto; padding: 0 1.25rem 4rem; }
-  a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-  a:hover { text-decoration-thickness: 2px; }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  p { margin: 0 0 1rem; }
-  code { font-family: var(--mono); font-size: 0.92em; }
-  h1, h2, h3 { line-height: 1.15; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
-  h2 { font-size: 1.35rem; margin: 2.25rem 0 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
-  h3 { font-size: 1.15rem; margin: 0 0 0.35rem; }
-  ul { padding-left: 1.2rem; margin: 0 0 1rem; }
-  li { margin: 0 0 0.4rem; }
-  .lead { color: var(--ink-2); margin: -0.5rem 0 1.25rem; }
-  .nw { white-space: nowrap; }
-
-  /* Hero: everything a recruiter needs before scrolling. */
-  .hero { padding-top: 2.25rem; }
-  .target {
-    position: relative;
-    display: inline-block;
-    padding: 0.9rem 1.1rem 0.75rem;
-    margin: 1.1rem 0 1rem;
-    max-width: 100%;
-  }
-  .target::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 2px solid var(--accent);
-    border-radius: 2px;
-    pointer-events: none;
-  }
-  .target .tag {
-    position: absolute;
-    top: -0.95rem;
-    left: -2px;
-    background: var(--accent);
-    color: #fff;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    line-height: 1.2;
-    padding: 0.22rem 0.5rem;
-    border-radius: 2px 2px 0 0;
-    white-space: nowrap;
-  }
-  @media (prefers-color-scheme: dark) { .target .tag { color: #0c0f0d; } }
-  .hero h1 { font-size: clamp(2rem, 8vw, 2.75rem); font-weight: 700; }
-  .hero .role { font-size: 1.15rem; font-weight: 600; margin: 0; color: var(--ink); text-wrap: balance; }
-  .hero .pitch { font-size: 1.05rem; max-width: 34rem; }
-  .status { color: var(--ink-2); font-size: 0.95rem; margin: 0 0 1.25rem; }
-  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 0.5rem; }
-  .btn {
-    display: inline-block;
-    padding: 0.6rem 1rem;
-    border: 1.5px solid var(--ink);
-    border-radius: 4px;
-    color: var(--ink);
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.95rem;
-  }
-  .btn.primary { background: var(--ink); color: var(--paper); }
-  .btn:hover { border-color: var(--accent); }
-  .btn.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-  /* One page-load moment: the box locks on. Nothing else moves. */
-  @media (prefers-reduced-motion: no-preference) {
-    .target::before { animation: lock 0.6s cubic-bezier(.2,.8,.2,1) both; }
-    .target .tag { animation: tagin 0.3s 0.5s ease-out both; }
-    @keyframes lock { from { inset: -14px; opacity: 0; } to { inset: 0; opacity: 1; } }
-    @keyframes tagin { from { opacity: 0; } to { opacity: 1; } }
-  }
-
-  /* Project cards: a short description, then a spec strip like a datasheet. */
-  .project { padding: 1.5rem 0; }
-  .project + .project { border-top: 1px solid var(--rule); }
-  h2 + .project, .lead + .project { padding-top: 0.25rem; }
-  .project .when { color: var(--ink-2); font-size: 0.9rem; margin: 0 0 0.6rem; }
-  .project .what { margin: 0 0 0.9rem; }
-  .spec { margin: 0 0 0.9rem; border-top: 1px solid var(--rule); }
-  .spec .row { display: flex; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--rule); font-size: 0.95rem; }
-  .spec .k { flex: 0 0 5.5rem; color: var(--ink-2); }
-  .spec .v { flex: 1 1 auto; margin: 0; }
-  .note { font-size: 0.9rem; color: var(--ink-2); margin: 0; }
-  .links { font-size: 0.95rem; margin: 0.6rem 0 0; }
-  .links a + a { margin-left: 1rem; }
-  figure.media { margin: 0 0 1rem; }
-  figure.media img, figure.media video { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--tint); }
-  figure.media figcaption { font-size: 0.85rem; color: var(--ink-2); margin-top: 0.35rem; }
-
-  /* Compact lists for the rest. */
-  .also li, .background li { margin-bottom: 0.55rem; }
-  .skills { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; list-style: none; }
-  .skills li { margin: 0; padding: 0.25rem 0.6rem; background: var(--tint); border-radius: 3px; font-size: 0.9rem; }
-  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 0.9rem; }
-  footer p { margin: 0 0 0.5rem; }
-  @media (max-width: 480px) {
-    .actions { display: grid; grid-template-columns: 1fr 1fr; }
-    .btn { text-align: center; }
-  }
-  @media (min-width: 600px) {
-    html { font-size: 18px; }
-    .hero { padding-top: 4rem; }
-  }
-</style>
 </head>
-<body>
+<body class="home">
 <main>
+<header class="hero wrap">
+  <div class="det-box">
+    <span class="det-tag" aria-hidden="true">lukas_pfalz 0.99</span>
+    <h1>Lukas Pfalz</h1>
+    <p class="role">Robot learning and autonomy software</p>
+  </div>
 
-  <header class="hero">
-    <div class="target">
-      <span class="tag" aria-hidden="true">lukas_pfalz  0.99</span>
-      <h1>Lukas Pfalz</h1>
-      <p class="role">Robot learning and autonomy software</p>
-    </div>
+  <p class="pitch">I build the stack that learned policies run on: ROS 2 on NVIDIA Jetson, models exported to TensorRT, sensor fusion, and fleet telemetry pipelines. Now working on the next step, replacing hand-tuned control with policies trained in simulation, starting with a desktop arm, Isaac Lab, and LeRobot. Computer science student at UMGC, class of 2027.</p>
 
-    <p class="pitch">I build the stack that learned policies run on: ROS 2 on NVIDIA Jetson, models exported to TensorRT, sensor fusion, and fleet telemetry pipelines. Now working on the next step, replacing hand-tuned control with policies trained in simulation, starting with a desktop arm, Isaac Lab, and LeRobot. Computer science student at UMGC, class of 2027.</p>
+  <!-- CONFIRM the citizenship sentence. Delete it if it is not accurate. -->
+  <p class="status">Maryland, DC area. U.S. citizen. Available for a Summer 2027 internship or a <span class="nw">Fall 2027 co-op</span> in robot learning, autonomy, or perception. Open to relocation.</p>
 
-    <!-- CONFIRM the citizenship line before publishing. Delete the sentence if it is not accurate. -->
-    <p class="status">Maryland, DC area. U.S. citizen. Available for a Summer 2027 internship or a <span class="nw">Fall 2027 co-op</span> in robot learning, autonomy, or perception. Open to relocation.</p>
+  <nav class="actions" aria-label="Contact">
+    <a class="btn primary" href="resume.pdf">Resume (PDF)</a>
+    <a class="btn" href="mailto:lukasbotzilla@gmail.com">Email</a>
+    <a class="btn" href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a>
+    <a class="btn" href="https://github.com/Lukas-Pfalz">GitHub</a>
+  </nav>
+  <p class="email-line"><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a></p>
+</header>
 
-    <nav class="actions" aria-label="Contact">
-      <a class="btn primary" href="resume.pdf">Resume (PDF)</a>
-      <a class="btn" href="https://github.com/Lukas-Pfalz">GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a>
-      <a class="btn" href="mailto:lukasbotzilla@gmail.com">Email</a>
-    </nav>
-  </header>
+<section class="band wrap" id="projects">
+  <h2>Projects</h2>
+  <p class="lead">Each project has its own page with video and the story behind it.</p>
+  <div class="grid">
+    <a class="tile wide" href="so101.html">
+      <div class="frame">
+        <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a robot arm reaching for a block" focusable="false"><path class="ln" d="M20 78H140"/><rect class="ln" x="38" y="68" width="20" height="10" rx="1.5"/><path class="lk" d="M48 66L70 34L100 46"/><circle class="jt" cx="48" cy="66" r="3"/><circle class="jt" cx="70" cy="34" r="3"/><circle class="jt" cx="100" cy="46" r="2.5"/><path class="ln" d="M100 48.5V53M95.5 53H104.5M95.5 53V59M104.5 53V59"/><rect class="ln" x="96" y="66" width="12" height="12"/><rect class="hi" x="92" y="62" width="20" height="20"/><rect class="hf" x="92" y="58.5" width="10" height="3.5"/></svg>
+        <img src="media/so101-teleop.jpg" alt="" loading="lazy" decoding="async">
+        <span class="det-tag" aria-hidden="true">so101_arm 0.97</span>
+      </div>
+      <p class="ctx">Current project, started September 2026</p>
+      <h3>Robot learning on a desktop arm</h3>
+      <p class="sum">Teleoperating an SO-101 arm with LeRobot, building toward imitation learning and sim-to-real policies.</p>
+    </a>
+    <a class="tile" href="rover.html">
+      <div class="frame">
+        <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a rover detecting a person ahead" focusable="false"><path class="ln" d="M10 72H150"/><rect class="ln" x="24" y="50" width="40" height="12" rx="2"/><circle class="jt" cx="32" cy="66" r="6"/><circle class="jt" cx="56" cy="66" r="6"/><path class="ln" d="M58 50V40"/><rect class="ln" x="54" y="35" width="9" height="5" rx="1"/><path class="dash" d="M63 37.5L112 48"/><circle class="ln" cx="124" cy="37" r="4"/><path class="ln" d="M124 41V57M124 57L119 70M124 57L129 70M124 45L118 52M124 45L130 52"/><rect class="hi" x="112" y="29" width="24" height="43"/><rect class="hf" x="112" y="25.5" width="12" height="3.5"/></svg>
+        <img src="media/rover-tracking.jpg" alt="" loading="lazy" decoding="async">
+        <span class="det-tag" aria-hidden="true">rover 0.96</span>
+      </div>
+      <p class="ctx">KBR internship, summer 2026</p>
+      <h3>Autonomous rover with a voice</h3>
+      <p class="sum">Finds a target, steers to it at 20 Hz, and talks with people through a language model running on the robot.</p>
+    </a>
+    <a class="tile" href="sonar.html">
+      <div class="frame">
+        <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a sonar fan with a detected tag" focusable="false"><path class="ln" d="M80 84L30.2 42.2M80 84L129.8 42.2"/><path class="dash" d="M60.85 67.93A25 25 0 0 1 99.15 67.93M45.53 55.07A45 45 0 0 1 114.47 55.07"/><path class="ln" d="M30.21 42.22A65 65 0 0 1 129.79 42.22"/><circle class="dot" cx="73.1" cy="60.2" r="0.89"/><circle class="dot" cx="53.3" cy="51.4" r="0.72"/><circle class="dot" cx="53.4" cy="53.0" r="0.52"/><circle class="dot" cx="77.8" cy="63.0" r="0.55"/><circle class="dot" cx="73.3" cy="29.2" r="0.57"/><circle class="dot" cx="60.1" cy="42.3" r="1.07"/><circle class="dot" cx="84.4" cy="48.4" r="1.09"/><circle class="dot" cx="42.3" cy="41.7" r="0.67"/><circle class="dot" cx="67.4" cy="64.4" r="0.69"/><circle class="dot" cx="92.7" cy="61.2" r="0.85"/><circle class="dot" cx="87.7" cy="50.1" r="0.83"/><circle class="dot" cx="66.6" cy="68.2" r="0.62"/><circle class="dot" cx="90.6" cy="48.3" r="0.69"/><circle class="dot" cx="85.3" cy="46.0" r="0.68"/><circle class="dot" cx="102.5" cy="40.0" r="0.65"/><circle class="dot" cx="85.0" cy="42.7" r="1.03"/><circle class="dot" cx="91.1" cy="55.1" r="1.09"/><circle class="dot" cx="58.8" cy="53.9" r="0.95"/><circle class="dot" cx="58.8" cy="50.1" r="0.52"/><circle class="dot" cx="94.0" cy="33.5" r="0.84"/><circle class="dot" cx="98.2" cy="57.5" r="0.92"/><circle class="dot" cx="86.7" cy="40.4" r="0.77"/><circle class="dot" cx="111.4" cy="32.3" r="0.78"/><circle class="dot" cx="85.4" cy="64.0" r="0.92"/><circle class="dot" cx="94.7" cy="23.1" r="0.99"/><circle class="dot" cx="68.0" cy="50.7" r="0.90"/><circle class="dot" cx="53.1" cy="56.1" r="0.60"/><circle class="dot" cx="68.1" cy="67.1" r="0.96"/><circle class="dot" cx="63.7" cy="59.9" r="0.73"/><circle class="dot" cx="92.1" cy="66.1" r="0.77"/><circle class="dot" cx="84.6" cy="26.4" r="0.99"/><circle class="dot" cx="96.8" cy="58.5" r="0.75"/><circle class="dot" cx="67.0" cy="27.7" r="1.07"/><circle class="dot" cx="66.2" cy="62.0" r="0.64"/><rect class="dot" x="85.7" y="31.8" width="6" height="6"/><rect class="jt0" x="87.2" y="33.3" width="3" height="3"/><rect class="hi" x="82.7" y="28.8" width="12" height="12"/><rect class="hf" x="82.7" y="25.3" width="7" height="3.5"/></svg>
+        <img src="media/sonar-raw.jpg" alt="" loading="lazy" decoding="async">
+        <span class="det-tag" aria-hidden="true">sonar_tag 0.91</span>
+      </div>
+      <p class="ctx">Independent research, since December 2025</p>
+      <h3>Sonar vision for murky water</h3>
+      <p class="sum">A transformer that turns imaging sonar into features a fiducial detector can read when cameras are blind.</p>
+    </a>
+    <a class="tile" href="forterra.html">
+      <div class="frame">
+        <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a telemetry dashboard with a line chart and bars" focusable="false"><rect class="ln" x="18" y="12" width="124" height="66" rx="2"/><path class="ln" d="M18 22H142"/><circle class="dot" cx="24" cy="17" r="1.2"/><circle class="dot" cx="29" cy="17" r="1.2"/><path class="dash" d="M26 64H86M26 48H86M26 32H86"/><path class="path" d="M26 58L36 52L46 55L56 40L66 44L76 33L86 36"/><path class="occ" d="M98 66h6v-14h-6zM108 66h6v-24h-6zM118 66h6v-18h-6zM128 66h6v-30h-6z"/><path class="ln" d="M96 66H136"/><rect class="hi" x="72" y="28" width="9" height="9"/></svg>
+        <img src="media/forterra-telemetry.jpg" alt="" loading="lazy" decoding="async">
+        <span class="det-tag" aria-hidden="true">telemetry 0.95</span>
+      </div>
+      <p class="ctx">Forterra internship, 2025</p>
+      <h3>Autonomous-fleet telemetry pipeline</h3>
+      <p class="sum">Streams autonomous-fleet telemetry into PostgreSQL and turns it into Grafana dashboards for uptime, autonomous miles, and mission success.</p>
+    </a>
+    <a class="tile" href="slam.html">
+      <div class="frame">
+        <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of an occupancy grid map with a planned path" focusable="false"><path class="g" d="M28 10V82M36 10V82M44 10V82M52 10V82M60 10V82M68 10V82M76 10V82M84 10V82M92 10V82M100 10V82M108 10V82M116 10V82M124 10V82M132 10V82M20 18H140M20 26H140M20 34H140M20 42H140M20 50H140M20 58H140M20 66H140M20 74H140"/><path class="occ" d="M20 10h8v8h-8zM20 18h8v8h-8zM20 26h8v8h-8zM20 34h8v8h-8zM20 42h8v8h-8zM20 50h8v8h-8zM20 58h8v8h-8zM20 66h8v8h-8zM20 74h8v8h-8zM28 10h8v8h-8zM28 74h8v8h-8zM36 10h8v8h-8zM36 74h8v8h-8zM44 10h8v8h-8zM44 74h8v8h-8zM52 10h8v8h-8zM52 26h8v8h-8zM52 34h8v8h-8zM52 42h8v8h-8zM52 50h8v8h-8zM52 58h8v8h-8zM52 74h8v8h-8zM60 10h8v8h-8zM60 26h8v8h-8zM60 34h8v8h-8zM60 42h8v8h-8zM60 50h8v8h-8zM60 58h8v8h-8zM60 74h8v8h-8zM68 10h8v8h-8zM68 74h8v8h-8zM76 10h8v8h-8zM76 74h8v8h-8zM84 10h8v8h-8zM84 74h8v8h-8zM92 10h8v8h-8zM92 18h8v8h-8zM92 26h8v8h-8zM92 34h8v8h-8zM92 42h8v8h-8zM92 58h8v8h-8zM92 74h8v8h-8zM100 10h8v8h-8zM100 18h8v8h-8zM100 26h8v8h-8zM100 34h8v8h-8zM100 42h8v8h-8zM100 58h8v8h-8zM100 74h8v8h-8zM108 10h8v8h-8zM108 58h8v8h-8zM108 74h8v8h-8zM116 10h8v8h-8zM116 58h8v8h-8zM116 74h8v8h-8zM124 10h8v8h-8zM124 74h8v8h-8zM132 10h8v8h-8zM132 18h8v8h-8zM132 26h8v8h-8zM132 34h8v8h-8zM132 42h8v8h-8zM132 50h8v8h-8zM132 58h8v8h-8zM132 66h8v8h-8zM132 74h8v8h-8z"/><path class="dash" d="M32 70L28 26M32 70L60 18M32 70L60 66M32 70L84 78"/><path class="path" d="M32 70H88V54H128V22"/><circle class="hf" cx="32" cy="70" r="3"/><circle class="hi" cx="128" cy="22" r="3.4"/><circle class="hf" cx="128" cy="22" r="1.3"/></svg>
+        
+        <span class="det-tag" aria-hidden="true">occupancy_map 0.94</span>
+      </div>
+      <p class="ctx">Personal project</p>
+      <h3>SLAM and path planning</h3>
+      <p class="sum">LiDAR, camera, and IMU fused into a semantic map, with an A* planner choosing the route.</p>
+    </a>
+  </div>
+</section>
 
-  <h2 id="now">Now: robot learning</h2>
-  <article class="project">
-    <h3>Sim-to-real policy learning on a desktop arm</h3>
-    <p class="when">Started September 2026. Personal project.</p>
-    <p class="what">Train a policy in NVIDIA Isaac Lab, move it onto a physical SO-ARM101 arm, and measure how much of the simulated performance survives the transfer. Then collect teleoperated demonstrations with LeRobot and train an imitation-learning policy on a pick-and-place task.</p>
-    <!-- OPTIONAL media: the first sim video of the reach policy belongs here the day you have it.
-    <figure class="media">
-      <video controls preload="none" playsinline poster="media/reach-poster.jpg" width="1280" height="720">
-        <source src="media/reach.mp4" type="video/mp4">
-      </video>
-      <figcaption>Reach policy after N training iterations in Isaac Lab.</figcaption>
-    </figure>
-    -->
-    <div class="spec">
-      <div class="row"><span class="k">Platform</span><p class="v">SO-ARM101 arm (LeRobot kit). Isaac Sim and Isaac Lab for training on a desktop with an RTX 5070 Ti.</p></div>
-      <!-- CONFIRM the Done line, and date it. This is the line a hiring manager will ask about.
-           It is deliberately conservative. If more is true, upgrade it, for example:
-           "Arm assembled and calibrated. LeRobot set up on Linux. Reach-policy training running in Isaac Lab." -->
-      <div class="row"><span class="k">Done</span><p class="v">Arm assembled. Setting up LeRobot on Linux and the Isaac Lab reach task.</p></div>
-      <div class="row"><span class="k">Next</span><p class="v">Train a reach policy in Isaac Lab, transfer it to the real arm, and log success rate over repeated trials. Add domain randomization if the sim-to-real gap is large.</p></div>
-      <!-- CONFIRM the Plan row: keep it only if this is the plan you would describe at a booth. -->
-      <div class="row"><span class="k">Plan</span><p class="v">Teleop demonstrations through LeRobot, then an imitation-learning policy (ACT or Diffusion Policy) for pick-and-place, evaluated the same way.</p></div>
-    </div>
-    <p class="note">Last updated October 2026.</p>
-  </article>
+<section class="band wrap" id="experience">
+  <h2>Experience</h2>
+  <ol class="xp">
+    <li>
+      <p class="when">June to August 2026</p>
+      <div><h3>KBR, data science intern</h3>
+      <p>Multi-Domain Autonomous Command and Control project. Rover perception, steering control, and an on-device voice agent. <a href="rover.html">Rover project page</a></p></div>
+    </li>
+    <li>
+      <!-- CONFIRM: your resume lists Forterra as May 2025 to present. -->
+      <p class="when">May 2025 to present</p>
+      <div><h3>Forterra, yard software intern</h3>
+      <p>Built the pipeline that streams autonomous-fleet telemetry into PostgreSQL (Dockerized Python ETL with idempotent upserts and fault-tolerant batching) and the Grafana dashboards the team uses to track uptime, autonomous versus manual miles, and mission success. <a href="forterra.html">Pipeline project page</a></p></div>
+    </li>
+    <li>
+      <p class="when">August 2025 to January 2026</p>
+      <div><h3>Robotics@Maryland, Qubo AUV perception</h3>
+      <p>Jetson Orin vision pipeline with OpenCV and YOLO for the University of Maryland's underwater robotics team, tuned for real-time stability in competition.</p></div>
+    </li>
+    <li>
+      <p class="when">Earlier</p>
+      <div><h3>Teams and labs</h3>
+      <p>TREC Lab at Virginia Tech (wiring for the ESCHER humanoid), UMD BattleBots, and FIRST Robotics Team 4514, where I was programming lead.</p></div>
+    </li>
+  </ol>
+</section>
 
-  <h2 id="work">Deployed work</h2>
-  <p class="lead">A learned policy is only useful once it runs on the robot. These projects are where I built the pieces around the model: the on-device runtime, the sensor fusion, the control loop, and the data pipeline.</p>
-
-  <article class="project">
-    <h3>Autonomous rover: detect, track, drive</h3>
-    <p class="when">KBR, data science intern, June to August 2026. Multi-Domain Autonomous Command and Control project.</p>
-    <p class="what">A ground rover that finds a target with its camera, keeps it in frame, and drives to it on its own, built for safety-operations use. It also carries an on-device voice agent so a person can talk to the robot without any cloud connection.</p>
-    <!-- OPTIONAL media. Uncomment and point at your own file in the media folder.
-    <figure class="media">
-      <img src="media/rover.jpg" alt="The rover tracking a target on a parking lot" width="1200" height="675" loading="lazy">
-      <figcaption>Rover during an approach test. Photo cleared for release by KBR.</figcaption>
-    </figure>
-    -->
-    <div class="spec">
-      <div class="row"><span class="k">Platform</span><p class="v">Jetson Orin NX, Astra Pro Plus RGB-D camera, ReSpeaker mic array, Ackermann-steered chassis</p></div>
-      <div class="row"><span class="k">Stack</span><p class="v">ROS 2 Humble. <code>YOLO26</code> exported to ONNX and TensorRT FP16. Single-target tracker. 20 Hz PID approach loop with IMU gyro feedback driving the steering. Local LLM voice agent for medical triage questions.</p></div>
-      <!-- CONFIRM: state exactly what you owned versus what teammates built. -->
-      <div class="row"><span class="k">My part</span><p class="v">Built the detection-to-steering loop and the voice pipeline, and tuned both on the vehicle.</p></div>
-      <div class="row"><span class="k">Result</span><p class="v">Closed loop from camera frame to steering command at 20 Hz, running on the Jetson.</p></div>
-    </div>
-    <p class="note">Employer project. Details here are limited to what is on my resume. Happy to go deeper in person.</p>
-  </article>
-
-  <article class="project">
-    <h3>Learned perception: a sonar-to-vision transformer</h3>
-    <p class="when">Independent research, December 2025 to present.</p>
-    <p class="what">Underwater robots lose their cameras in murky water. This transformer maps imaging-sonar returns into vision-style features so an AcTag fiducial detector keeps working when the cameras cannot see.</p>
-    <!-- OPTIONAL media
-    <figure class="media">
-      <img src="media/sonar.jpg" alt="Sonar frame beside the reconstructed vision-style feature map" width="1200" height="675" loading="lazy">
-      <figcaption>Left: raw sonar return. Right: features the detector sees.</figcaption>
-    </figure>
-    -->
-    <div class="spec">
-      <div class="row"><span class="k">Platform</span><p class="v">Jetson Orin Nano</p></div>
-      <div class="row"><span class="k">Stack</span><p class="v">PyTorch training. OpenCV and NumPy preprocessing to propose tag candidates. ONNX to TensorRT FP16. ROS 2 with <code>tf2</code> and the <code>robot_localization</code> EKF.</p></div>
-      <!-- CONFIRM or add a number: inference time per frame, detection rate in test footage, dataset size. -->
-      <div class="row"><span class="k">Status</span><p class="v">Running in FP16 on the Orin Nano. Detections feed the EKF for loop closure and pose estimation.</p></div>
-    </div>
-    <!-- OPTIONAL: add the repo link once the code is public.
-    <p class="links"><a href="https://github.com/Lukas-Pfalz/REPO">Code</a></p>
-    -->
-  </article>
-
-  <article class="project">
-    <h3>SLAM and path planning on a Jetson robot</h3>
-    <!-- CONFIRM dates for this project. -->
-    <p class="when">Personal project.</p>
-    <p class="what">A mobile robot that fuses LiDAR, camera, and IMU into a semantic occupancy grid and plans its own route through it.</p>
-    <div class="spec">
-      <div class="row"><span class="k">Platform</span><p class="v">Jetson Orin Nano with LiDAR, camera, and IMU</p></div>
-      <div class="row"><span class="k">Stack</span><p class="v">ROS 2 nodes for each stage. EKF sensor fusion. Semantic occupancy grid. A* planner. PyTorch to ONNX to TensorRT FP16 for the perception model.</p></div>
-      <!-- CONFIRM or add a number: map size, planning rate, success rate over N runs. -->
-      <div class="row"><span class="k">Result</span><p class="v">End-to-end autonomy on the robot, from sensors to planned path, with every stage as a separate ROS 2 node.</p></div>
-    </div>
-  </article>
-
-  <article class="project">
-    <h3>Autonomous-fleet telemetry pipeline</h3>
-    <!-- CONFIRM dates. Your resume lists Forterra as May 2025 to present. -->
-    <p class="when">Forterra, yard software intern, 2025.</p>
-    <p class="what">Autonomous yard vehicles produce a steady stream of telemetry. I built the pipeline that lands it in a database and the dashboards the team uses to see how the fleet is doing. Fleet learning starts with exactly this kind of logging: you cannot train on what you never recorded.</p>
-    <div class="spec">
-      <div class="row"><span class="k">Stack</span><p class="v">Dockerized Python ETL streaming into PostgreSQL with idempotent upserts and fault-tolerant batching. Grafana dashboards.</p></div>
-      <div class="row"><span class="k">Result</span><p class="v">Live views of vehicle uptime, autonomous versus manual miles, and mission success.</p></div>
-    </div>
-  </article>
-
-  <h2 id="also">Also</h2>
-  <ul class="also">
-    <li>Robotics@Maryland, Qubo AUV perception, August 2025 to January 2026: Jetson Orin vision pipeline with OpenCV and YOLO, tuned for real-time stability in competition.</li>
-    <li>TREC Lab, Virginia Tech: wiring on the ESCHER humanoid.</li>
-    <li>UMD BattleBots.</li>
-    <li>FIRST Robotics Team 4514, programming lead.</li>
-  </ul>
-
-  <h2 id="background">Background</h2>
-  <ul class="background">
+<section class="band wrap" id="background">
+  <h2>Education and tools</h2>
+  <ul class="plain">
     <li>B.S. Computer Science, University of Maryland Global Campus, expected 2027. 4.0 GPA, Dean's List.</li>
     <li>Earlier coursework in computer science and information science at the University of Maryland, College Park, 2021 to 2025.</li>
     <!-- CONFIRM: interests are fair game for booth questions. Cut any you could not talk about for two minutes. -->
     <li>Interested in imitation learning and vision-language-action models for manipulation, sim-to-real transfer, and learned perception for GPS-denied and low-visibility environments.</li>
     <li>English (native), German (conversational).</li>
   </ul>
-  <!-- CONFIRM: remove anything you would not want to be quizzed on at a booth. -->
-  <ul class="skills" aria-label="Tools">
-    <li>NVIDIA Isaac Sim and Isaac Lab</li><li>LeRobot</li><li>PyTorch</li><li>ROS 2 Humble</li><li>Python</li><li>ONNX</li><li>TensorRT</li><li>OpenCV</li><li>YOLO</li>
-    <li>Jetson Orin</li><li>Docker</li><li>PostgreSQL</li><li>Grafana</li><li>Linux</li><li>Git</li>
+  <!-- CONFIRM: remove any tool you would not want to be quizzed on. -->
+  <ul class="chips" aria-label="Tools">
+    <li>NVIDIA Isaac Sim and Isaac Lab</li><li>LeRobot</li><li>PyTorch</li><li>ROS 2 Humble</li><li>Python</li><li>ONNX</li><li>TensorRT</li><li>OpenCV</li><li>YOLO</li><li>Whisper</li><li>Jetson Orin</li><li>Docker</li><li>PostgreSQL</li><li>Grafana</li><li>Linux</li><li>Git</li>
   </ul>
+</section>
 
-  <footer>
-    <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
-    <p>Updated October 2026.</p>
-  </footer>
-
+<section class="band wrap contact" id="contact">
+  <h2>Contact</h2>
+  <p>Email is the fastest way to reach me.</p>
+  <p><a class="big" href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a></p>
+  <nav class="actions" aria-label="Links">
+    <a class="btn primary" href="resume.pdf">Resume (PDF)</a>
+    <a class="btn" href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a>
+    <a class="btn" href="https://github.com/Lukas-Pfalz">GitHub</a>
+  </nav>
+</section>
 </main>
-
-<!--
-  VISIT COUNTING (optional, 5 minutes, free for personal sites):
-  1. Sign up at https://www.goatcounter.com and pick a code, e.g. lukaspfalz.
-  2. Replace YOURCODE below and remove the comment markers around the two script tags.
-  The path function keeps the query string, so card scans show up as "/?s=ausa" in your dashboard.
-
+<footer class="wrap site-foot">
+  <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
+  <p>Lukas Pfalz. Updated October 2026.</p>
+</footer>
 <script>
-  window.goatcounter = { path: function(p) { return location.pathname + location.search; } };
+/*
+  Media fallback. Every media frame has a line drawing underneath the real
+  photo or video. If a file has not been uploaded yet, the broken element is
+  removed so the drawing shows instead, and its caption is hidden. Figures
+  in the middle of a page (class p-inline) are removed entirely instead, so
+  a page never repeats the same drawing.
+  - Images: removed when they fail to load (works on the live site and when
+    previewing from disk).
+  - Videos: set to preload="none", so a missing file would only fail when
+    someone taps play. A small HEAD request checks each one up front. This
+    runs on the live site only, because browsers block it for local files.
+  - Once a video starts playing, its background turns black so portrait
+    clips are letterboxed cleanly instead of showing the drawing at the sides.
+*/
+(function () {
+  function drop(el) {
+    var fig = el.closest('figure');
+    if (fig && fig.classList.contains('p-inline')) { fig.remove(); return; }
+    el.remove();
+    if (fig) {
+      var cap = fig.querySelector('figcaption');
+      if (cap && !fig.hasAttribute('data-keep-caption')) cap.remove();
+    }
+  }
+  document.querySelectorAll('.frame img').forEach(function (img) {
+    if (img.complete && img.naturalWidth === 0) { drop(img); return; }
+    img.addEventListener('error', function () { drop(img); });
+  });
+  document.querySelectorAll('.frame video').forEach(function (v) {
+    v.addEventListener('play', function () { v.classList.add('playing'); });
+    var s = v.querySelector('source');
+    if (!s || !/^https?:/.test(location.protocol)) return;
+    fetch(s.src, { method: 'HEAD' }).then(function (r) { if (!r.ok) drop(v); }).catch(function () {});
+  });
+})();
 </script>
-<script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
 </body>
 </html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomous rover with a voice | Lukas Pfalz</title>
+<meta name="description" content="YOLO26 tracking, 20 Hz PID steering, and an on-device voice agent on a Jetson Orin NX rover. lukasbotzilla@gmail.com">
+<meta property="og:title" content="Autonomous rover with a voice | Lukas Pfalz">
+<meta property="og:description" content="YOLO26 tracking, 20 Hz PID steering, and an on-device voice agent on a Jetson Orin NX rover. lukasbotzilla@gmail.com">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fafaf8">
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fafaf8'/%3E%3Cpath d='M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5' fill='none' stroke='%231e9e5a' stroke-width='3' stroke-linecap='round'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23000'/%3E%3C/svg%3E">
+</head>
+<body class="project">
+<header class="topbar wrap">
+  <a class="home" href="index.html">Lukas Pfalz</a>
+  <nav aria-label="Site">
+    <a href="index.html#projects">Projects</a>
+    <a href="resume.pdf">Resume</a>
+    <a href="mailto:lukasbotzilla@gmail.com">Email</a>
+  </nav>
+</header>
+<main>
+<header class="p-head wrap">
+  <a class="back" href="index.html#projects">All projects</a>
+  <h1>Autonomous rover with a voice</h1>
+  <p class="lead">A ground rover for safety operations that finds a target with its camera, drives to it on its own, and holds a spoken conversation, with everything running on the robot.</p>
+  <dl class="spec">
+    <dt>Role</dt><dd>Data science intern, KBR</dd>
+    <dt>Program</dt><dd>Multi-Domain Autonomous Command and Control</dd>
+    <dt>When</dt><dd>June to August 2026</dd>
+    <dt>Hardware</dt><dd>Jetson Orin NX, Astra Pro Plus RGB-D camera, ReSpeaker mic array, Ackermann-steered chassis</dd>
+    <dt>Software</dt><dd>ROS 2 Humble, YOLO26 on TensorRT FP16, Whisper, a local language model, Piper</dd>
+  </dl>
+  <!-- CONFIRM: get a written OK from KBR before publishing the rover videos. -->
+  <p class="note">Employer project. Details are kept at a general level.</p>
+</header>
+
+<figure class="p-media wrap">
+  <div class="frame">
+    <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a rover detecting a person ahead" focusable="false"><path class="ln" d="M10 72H150"/><rect class="ln" x="24" y="50" width="40" height="12" rx="2"/><circle class="jt" cx="32" cy="66" r="6"/><circle class="jt" cx="56" cy="66" r="6"/><path class="ln" d="M58 50V40"/><rect class="ln" x="54" y="35" width="9" height="5" rx="1"/><path class="dash" d="M63 37.5L112 48"/><circle class="ln" cx="124" cy="37" r="4"/><path class="ln" d="M124 41V57M124 57L119 70M124 57L129 70M124 45L118 52M124 45L130 52"/><rect class="hi" x="112" y="29" width="24" height="43"/><rect class="hf" x="112" y="25.5" width="12" height="3.5"/></svg>
+      <video controls playsinline preload="none" poster="media/rover-tracking.jpg" width="1280" height="720" muted aria-label="The rover tracking and steering toward a target">
+        <source src="media/rover-tracking.mp4" type="video/mp4">
+      </video>
+  </div>
+  <figcaption>The rover locks onto a target and steers to keep it centered while it closes the distance.</figcaption>
+</figure>
+
+<article class="p-body wrap">
+  <div class="col">
+    <h2>Detect, track, drive</h2>
+    <p>The rover's first job is to get to the right place. The camera finds the target, a tracker keeps the rover on that one target, and a control loop turns the target's position in the frame into steering commands, 20 times a second.</p>
+    <ol class="chain">
+      <li><b>See.</b> The Astra Pro Plus streams color and depth images into ROS 2.</li>
+      <li><b>Detect.</b> YOLO26, exported to ONNX and TensorRT FP16, finds targets in real time on the Jetson.</li>
+      <li><b>Track.</b> A single-target tracker holds onto one target, so the rover does not jump between detections.</li>
+      <li><b>Steer.</b> A 20 Hz PID loop steers to keep the target centered, with the IMU gyro providing heading feedback.</li>
+      <li><b>Drive.</b> Commands go to the Ackermann steering and drive motors.</li>
+    </ol>
+    <h3>Hardest part</h3>
+    <!-- CONFIRM this matches what you did. -->
+    <p>Small corrections disappeared. The steering servo ignores very small commands, so the fine adjustments that keep a target centered never reached the wheels. I measured that deadband and reworked the steering command path so small corrections get through.</p>
+
+    <h2>Talking with the rover</h2>
+    <!-- CONFIRM: "with no cloud connection" and the triage report flow. -->
+    <p>Once it arrives, the rover has to find out what a person needs. The voice agent asks triage questions, listens, and keeps a transcript that becomes a short report for a human responder. Speech recognition, the language model, and speech synthesis all run on the Jetson, with no cloud connection.</p>
+  </div>
+  <figure class="p-inline">
+    <div class="frame">
+      <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a rover detecting a person ahead" focusable="false"><path class="ln" d="M10 72H150"/><rect class="ln" x="24" y="50" width="40" height="12" rx="2"/><circle class="jt" cx="32" cy="66" r="6"/><circle class="jt" cx="56" cy="66" r="6"/><path class="ln" d="M58 50V40"/><rect class="ln" x="54" y="35" width="9" height="5" rx="1"/><path class="dash" d="M63 37.5L112 48"/><circle class="ln" cx="124" cy="37" r="4"/><path class="ln" d="M124 41V57M124 57L119 70M124 57L129 70M124 45L118 52M124 45L130 52"/><rect class="hi" x="112" y="29" width="24" height="43"/><rect class="hf" x="112" y="25.5" width="12" height="3.5"/></svg>
+      <video controls playsinline preload="none" poster="media/rover-voice.jpg" width="1280" height="720" aria-label="A spoken conversation with the rover">
+        <source src="media/rover-voice.mp4" type="video/mp4">
+      </video>
+    </div>
+    <figcaption>A spoken exchange with the rover. Sound on.</figcaption>
+  </figure>
+  <div class="col">
+    <ol class="chain">
+      <li><b>Listen.</b> The ReSpeaker mic array captures speech and estimates which direction it came from.</li>
+      <li><b>Detect speech.</b> Voice activity detection decides when someone is talking.</li>
+      <li><b>Transcribe.</b> Whisper turns speech into text.</li>
+      <li><b>Respond.</b> A language model running on the Jetson, prompted as a triage assistant, writes the reply.</li>
+      <li><b>Speak.</b> Piper turns the reply into speech through the rover's speaker.</li>
+      <li><b>Report.</b> The conversation is saved and summarized for a responder.</li>
+    </ol>
+    <h3>Hardest part</h3>
+    <!-- CONFIRM this matches what you did. -->
+    <p>Fitting it all in 8 GB. Speech recognition, the language model, speech synthesis, and the detector share the Jetson's 8 GB of memory, and a model that loaded on an idle board failed on a busy one. I quantized the model's cache, shortened its context, and reordered startup so the largest model loads first.</p>
+
+    <h2>Result</h2>
+    <p>Camera frame to steering command at 20 Hz on the Jetson, and spoken conversations handled on the robot itself.</p>
+  </div>
+  <a class="next" href="sonar.html"><span class="muted">Next project</span><strong>Sonar vision for murky water</strong></a>
+</article>
+</main>
+<footer class="wrap site-foot">
+  <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
+  <p>Lukas Pfalz. Updated October 2026.</p>
+</footer>
+<script>
+/*
+  Media fallback. Every media frame has a line drawing underneath the real
+  photo or video. If a file has not been uploaded yet, the broken element is
+  removed so the drawing shows instead, and its caption is hidden. Figures
+  in the middle of a page (class p-inline) are removed entirely instead, so
+  a page never repeats the same drawing.
+  - Images: removed when they fail to load (works on the live site and when
+    previewing from disk).
+  - Videos: set to preload="none", so a missing file would only fail when
+    someone taps play. A small HEAD request checks each one up front. This
+    runs on the live site only, because browsers block it for local files.
+  - Once a video starts playing, its background turns black so portrait
+    clips are letterboxed cleanly instead of showing the drawing at the sides.
+*/
+(function () {
+  function drop(el) {
+    var fig = el.closest('figure');
+    if (fig && fig.classList.contains('p-inline')) { fig.remove(); return; }
+    el.remove();
+    if (fig) {
+      var cap = fig.querySelector('figcaption');
+      if (cap && !fig.hasAttribute('data-keep-caption')) cap.remove();
+    }
+  }
+  document.querySelectorAll('.frame img').forEach(function (img) {
+    if (img.complete && img.naturalWidth === 0) { drop(img); return; }
+    img.addEventListener('error', function () { drop(img); });
+  });
+  document.querySelectorAll('.frame video').forEach(function (v) {
+    v.addEventListener('play', function () { v.classList.add('playing'); });
+    var s = v.querySelector('source');
+    if (!s || !/^https?:/.test(location.protocol)) return;
+    fetch(s.src, { method: 'HEAD' }).then(function (r) { if (!r.ok) drop(v); }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>

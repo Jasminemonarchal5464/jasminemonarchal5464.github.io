@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sonar vision for murky water | Lukas Pfalz</title>
+<meta name="description" content="A transformer that maps imaging sonar to vision-style features for fiducial detection underwater. lukasbotzilla@gmail.com">
+<meta property="og:title" content="Sonar vision for murky water | Lukas Pfalz">
+<meta property="og:description" content="A transformer that maps imaging sonar to vision-style features for fiducial detection underwater. lukasbotzilla@gmail.com">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fafaf8">
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fafaf8'/%3E%3Cpath d='M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5' fill='none' stroke='%231e9e5a' stroke-width='3' stroke-linecap='round'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23000'/%3E%3C/svg%3E">
+</head>
+<body class="project">
+<header class="topbar wrap">
+  <a class="home" href="index.html">Lukas Pfalz</a>
+  <nav aria-label="Site">
+    <a href="index.html#projects">Projects</a>
+    <a href="resume.pdf">Resume</a>
+    <a href="mailto:lukasbotzilla@gmail.com">Email</a>
+  </nav>
+</header>
+<main>
+<header class="p-head wrap">
+  <a class="back" href="index.html#projects">All projects</a>
+  <h1>Sonar vision for murky water</h1>
+  <p class="lead">Underwater robots lose their cameras in murky water. This project trains a model to turn imaging sonar into vision-style features, so tag detection keeps working when the cameras cannot see.</p>
+  <dl class="spec">
+    <dt>Role</dt><dd>Independent research</dd>
+    <dt>When</dt><dd>December 2025 to present</dd>
+    <dt>Hardware</dt><dd>Jetson Orin Nano, imaging sonar data</dd>
+    <dt>Software</dt><dd>PyTorch, OpenCV, NumPy, ONNX, TensorRT FP16, ROS 2 (tf2, robot_localization)</dd>
+  </dl>
+  
+</header>
+
+<figure class="p-media wrap">
+  <div class="frame">
+    <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a sonar fan with a detected tag" focusable="false"><path class="ln" d="M80 84L30.2 42.2M80 84L129.8 42.2"/><path class="dash" d="M60.85 67.93A25 25 0 0 1 99.15 67.93M45.53 55.07A45 45 0 0 1 114.47 55.07"/><path class="ln" d="M30.21 42.22A65 65 0 0 1 129.79 42.22"/><circle class="dot" cx="73.1" cy="60.2" r="0.89"/><circle class="dot" cx="53.3" cy="51.4" r="0.72"/><circle class="dot" cx="53.4" cy="53.0" r="0.52"/><circle class="dot" cx="77.8" cy="63.0" r="0.55"/><circle class="dot" cx="73.3" cy="29.2" r="0.57"/><circle class="dot" cx="60.1" cy="42.3" r="1.07"/><circle class="dot" cx="84.4" cy="48.4" r="1.09"/><circle class="dot" cx="42.3" cy="41.7" r="0.67"/><circle class="dot" cx="67.4" cy="64.4" r="0.69"/><circle class="dot" cx="92.7" cy="61.2" r="0.85"/><circle class="dot" cx="87.7" cy="50.1" r="0.83"/><circle class="dot" cx="66.6" cy="68.2" r="0.62"/><circle class="dot" cx="90.6" cy="48.3" r="0.69"/><circle class="dot" cx="85.3" cy="46.0" r="0.68"/><circle class="dot" cx="102.5" cy="40.0" r="0.65"/><circle class="dot" cx="85.0" cy="42.7" r="1.03"/><circle class="dot" cx="91.1" cy="55.1" r="1.09"/><circle class="dot" cx="58.8" cy="53.9" r="0.95"/><circle class="dot" cx="58.8" cy="50.1" r="0.52"/><circle class="dot" cx="94.0" cy="33.5" r="0.84"/><circle class="dot" cx="98.2" cy="57.5" r="0.92"/><circle class="dot" cx="86.7" cy="40.4" r="0.77"/><circle class="dot" cx="111.4" cy="32.3" r="0.78"/><circle class="dot" cx="85.4" cy="64.0" r="0.92"/><circle class="dot" cx="94.7" cy="23.1" r="0.99"/><circle class="dot" cx="68.0" cy="50.7" r="0.90"/><circle class="dot" cx="53.1" cy="56.1" r="0.60"/><circle class="dot" cx="68.1" cy="67.1" r="0.96"/><circle class="dot" cx="63.7" cy="59.9" r="0.73"/><circle class="dot" cx="92.1" cy="66.1" r="0.77"/><circle class="dot" cx="84.6" cy="26.4" r="0.99"/><circle class="dot" cx="96.8" cy="58.5" r="0.75"/><circle class="dot" cx="67.0" cy="27.7" r="1.07"/><circle class="dot" cx="66.2" cy="62.0" r="0.64"/><rect class="dot" x="85.7" y="31.8" width="6" height="6"/><rect class="jt0" x="87.2" y="33.3" width="3" height="3"/><rect class="hi" x="82.7" y="28.8" width="12" height="12"/><rect class="hf" x="82.7" y="25.3" width="7" height="3.5"/></svg>
+      <img src="media/sonar-raw.jpg" alt="Raw imaging sonar frame" decoding="async">
+  </div>
+  <!-- CONFIRM the caption matches the image. -->
+  <figcaption>Raw imaging-sonar frame.</figcaption>
+</figure>
+
+<article class="p-body wrap">
+  <div class="col">
+    <h2>The problem</h2>
+    <p>Fiducial tags give an underwater robot fixed landmarks to localize against, but in turbid water the cameras see almost nothing while the sonar still returns a picture. This project learns a mapping from sonar returns to vision-style features, so an AcTag fiducial detector keeps working when murky water blinds the cameras.</p>
+
+    <h2>How it works</h2>
+    <ol class="chain">
+      <li><b>Preprocess.</b> OpenCV and NumPy clean up each sonar frame and propose candidate tag regions.</li>
+      <li><b>Translate.</b> A transformer maps the sonar returns into vision-style features.</li>
+      <li><b>Detect.</b> The AcTag fiducial detector runs on those features.</li>
+      <li><b>Localize.</b> Detections feed a ROS 2 EKF (robot_localization with tf2) for pose estimation and loop closure.</li>
+      <li><b>Deploy.</b> The model runs in FP16 with TensorRT on a Jetson Orin Nano.</li>
+    </ol>
+  </div>
+  <figure class="p-inline">
+    <div class="frame">
+      <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a sonar fan with a detected tag" focusable="false"><path class="ln" d="M80 84L30.2 42.2M80 84L129.8 42.2"/><path class="dash" d="M60.85 67.93A25 25 0 0 1 99.15 67.93M45.53 55.07A45 45 0 0 1 114.47 55.07"/><path class="ln" d="M30.21 42.22A65 65 0 0 1 129.79 42.22"/><circle class="dot" cx="73.1" cy="60.2" r="0.89"/><circle class="dot" cx="53.3" cy="51.4" r="0.72"/><circle class="dot" cx="53.4" cy="53.0" r="0.52"/><circle class="dot" cx="77.8" cy="63.0" r="0.55"/><circle class="dot" cx="73.3" cy="29.2" r="0.57"/><circle class="dot" cx="60.1" cy="42.3" r="1.07"/><circle class="dot" cx="84.4" cy="48.4" r="1.09"/><circle class="dot" cx="42.3" cy="41.7" r="0.67"/><circle class="dot" cx="67.4" cy="64.4" r="0.69"/><circle class="dot" cx="92.7" cy="61.2" r="0.85"/><circle class="dot" cx="87.7" cy="50.1" r="0.83"/><circle class="dot" cx="66.6" cy="68.2" r="0.62"/><circle class="dot" cx="90.6" cy="48.3" r="0.69"/><circle class="dot" cx="85.3" cy="46.0" r="0.68"/><circle class="dot" cx="102.5" cy="40.0" r="0.65"/><circle class="dot" cx="85.0" cy="42.7" r="1.03"/><circle class="dot" cx="91.1" cy="55.1" r="1.09"/><circle class="dot" cx="58.8" cy="53.9" r="0.95"/><circle class="dot" cx="58.8" cy="50.1" r="0.52"/><circle class="dot" cx="94.0" cy="33.5" r="0.84"/><circle class="dot" cx="98.2" cy="57.5" r="0.92"/><circle class="dot" cx="86.7" cy="40.4" r="0.77"/><circle class="dot" cx="111.4" cy="32.3" r="0.78"/><circle class="dot" cx="85.4" cy="64.0" r="0.92"/><circle class="dot" cx="94.7" cy="23.1" r="0.99"/><circle class="dot" cx="68.0" cy="50.7" r="0.90"/><circle class="dot" cx="53.1" cy="56.1" r="0.60"/><circle class="dot" cx="68.1" cy="67.1" r="0.96"/><circle class="dot" cx="63.7" cy="59.9" r="0.73"/><circle class="dot" cx="92.1" cy="66.1" r="0.77"/><circle class="dot" cx="84.6" cy="26.4" r="0.99"/><circle class="dot" cx="96.8" cy="58.5" r="0.75"/><circle class="dot" cx="67.0" cy="27.7" r="1.07"/><circle class="dot" cx="66.2" cy="62.0" r="0.64"/><rect class="dot" x="85.7" y="31.8" width="6" height="6"/><rect class="jt0" x="87.2" y="33.3" width="3" height="3"/><rect class="hi" x="82.7" y="28.8" width="12" height="12"/><rect class="hf" x="82.7" y="25.3" width="7" height="3.5"/></svg>
+      <img src="media/sonar-detections.jpg" alt="Sonar frame with detected tags marked" loading="lazy" decoding="async">
+    </div>
+    <!-- CONFIRM the caption matches the image. -->
+    <figcaption>Detections after processing.</figcaption>
+  </figure>
+  <div class="col">
+    <h2>Where it stands</h2>
+    <p>Running in FP16 on the Orin Nano, with detections feeding the EKF.</p>
+    <!-- CONFIRM or delete: next steps. -->
+    <p>Next: measure detection rate and per-frame latency on held-out sonar sequences, and publish the code.</p>
+  </div>
+  <a class="next" href="forterra.html"><span class="muted">Next project</span><strong>Autonomous-fleet telemetry pipeline</strong></a>
+</article>
+</main>
+<footer class="wrap site-foot">
+  <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
+  <p>Lukas Pfalz. Updated October 2026.</p>
+</footer>
+<script>
+/*
+  Media fallback. Every media frame has a line drawing underneath the real
+  photo or video. If a file has not been uploaded yet, the broken element is
+  removed so the drawing shows instead, and its caption is hidden. Figures
+  in the middle of a page (class p-inline) are removed entirely instead, so
+  a page never repeats the same drawing.
+  - Images: removed when they fail to load (works on the live site and when
+    previewing from disk).
+  - Videos: set to preload="none", so a missing file would only fail when
+    someone taps play. A small HEAD request checks each one up front. This
+    runs on the live site only, because browsers block it for local files.
+  - Once a video starts playing, its background turns black so portrait
+    clips are letterboxed cleanly instead of showing the drawing at the sides.
+*/
+(function () {
+  function drop(el) {
+    var fig = el.closest('figure');
+    if (fig && fig.classList.contains('p-inline')) { fig.remove(); return; }
+    el.remove();
+    if (fig) {
+      var cap = fig.querySelector('figcaption');
+      if (cap && !fig.hasAttribute('data-keep-caption')) cap.remove();
+    }
+  }
+  document.querySelectorAll('.frame img').forEach(function (img) {
+    if (img.complete && img.naturalWidth === 0) { drop(img); return; }
+    img.addEventListener('error', function () { drop(img); });
+  });
+  document.querySelectorAll('.frame video').forEach(function (v) {
+    v.addEventListener('play', function () { v.classList.add('playing'); });
+    var s = v.querySelector('source');
+    if (!s || !/^https?:/.test(location.protocol)) return;
+    fetch(s.src, { method: 'HEAD' }).then(function (r) { if (!r.ok) drop(v); }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>

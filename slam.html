@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLAM and path planning | Lukas Pfalz</title>
+<meta name="description" content="LiDAR, camera and IMU fusion into a semantic occupancy grid with A* planning on a Jetson. lukasbotzilla@gmail.com">
+<meta property="og:title" content="SLAM and path planning | Lukas Pfalz">
+<meta property="og:description" content="LiDAR, camera and IMU fusion into a semantic occupancy grid with A* planning on a Jetson. lukasbotzilla@gmail.com">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fafaf8">
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fafaf8'/%3E%3Cpath d='M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5' fill='none' stroke='%231e9e5a' stroke-width='3' stroke-linecap='round'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23000'/%3E%3C/svg%3E">
+</head>
+<body class="project">
+<header class="topbar wrap">
+  <a class="home" href="index.html">Lukas Pfalz</a>
+  <nav aria-label="Site">
+    <a href="index.html#projects">Projects</a>
+    <a href="resume.pdf">Resume</a>
+    <a href="mailto:lukasbotzilla@gmail.com">Email</a>
+  </nav>
+</header>
+<main>
+<header class="p-head wrap">
+  <a class="back" href="index.html#projects">All projects</a>
+  <h1>SLAM and path planning</h1>
+  <p class="lead">A mobile robot that maps its surroundings, labels what it sees, and plans its own route through the map.</p>
+  <dl class="spec">
+    <dt>Role</dt><dd>Personal project</dd>
+    <!-- CONFIRM: add a When row here, for example <dt>When</dt><dd>2025</dd> -->
+    <dt>Hardware</dt><dd>Jetson Orin Nano, LiDAR, camera, IMU</dd>
+    <dt>Software</dt><dd>ROS 2, EKF sensor fusion, PyTorch to ONNX to TensorRT FP16, A* planner</dd>
+  </dl>
+  
+</header>
+
+<figure class="p-media wrap">
+  <div class="frame">
+    <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of an occupancy grid map with a planned path" focusable="false"><path class="g" d="M28 10V82M36 10V82M44 10V82M52 10V82M60 10V82M68 10V82M76 10V82M84 10V82M92 10V82M100 10V82M108 10V82M116 10V82M124 10V82M132 10V82M20 18H140M20 26H140M20 34H140M20 42H140M20 50H140M20 58H140M20 66H140M20 74H140"/><path class="occ" d="M20 10h8v8h-8zM20 18h8v8h-8zM20 26h8v8h-8zM20 34h8v8h-8zM20 42h8v8h-8zM20 50h8v8h-8zM20 58h8v8h-8zM20 66h8v8h-8zM20 74h8v8h-8zM28 10h8v8h-8zM28 74h8v8h-8zM36 10h8v8h-8zM36 74h8v8h-8zM44 10h8v8h-8zM44 74h8v8h-8zM52 10h8v8h-8zM52 26h8v8h-8zM52 34h8v8h-8zM52 42h8v8h-8zM52 50h8v8h-8zM52 58h8v8h-8zM52 74h8v8h-8zM60 10h8v8h-8zM60 26h8v8h-8zM60 34h8v8h-8zM60 42h8v8h-8zM60 50h8v8h-8zM60 58h8v8h-8zM60 74h8v8h-8zM68 10h8v8h-8zM68 74h8v8h-8zM76 10h8v8h-8zM76 74h8v8h-8zM84 10h8v8h-8zM84 74h8v8h-8zM92 10h8v8h-8zM92 18h8v8h-8zM92 26h8v8h-8zM92 34h8v8h-8zM92 42h8v8h-8zM92 58h8v8h-8zM92 74h8v8h-8zM100 10h8v8h-8zM100 18h8v8h-8zM100 26h8v8h-8zM100 34h8v8h-8zM100 42h8v8h-8zM100 58h8v8h-8zM100 74h8v8h-8zM108 10h8v8h-8zM108 58h8v8h-8zM108 74h8v8h-8zM116 10h8v8h-8zM116 58h8v8h-8zM116 74h8v8h-8zM124 10h8v8h-8zM124 74h8v8h-8zM132 10h8v8h-8zM132 18h8v8h-8zM132 26h8v8h-8zM132 34h8v8h-8zM132 42h8v8h-8zM132 50h8v8h-8zM132 58h8v8h-8zM132 66h8v8h-8zM132 74h8v8h-8z"/><path class="dash" d="M32 70L28 26M32 70L60 18M32 70L60 66M32 70L84 78"/><path class="path" d="M32 70H88V54H128V22"/><circle class="hf" cx="32" cy="70" r="3"/><circle class="hi" cx="128" cy="22" r="3.4"/><circle class="hf" cx="128" cy="22" r="1.3"/></svg>
+  </div>
+  <figcaption>Illustration: a semantic occupancy grid with a planned path.</figcaption>
+</figure>
+
+<article class="p-body wrap">
+  <div class="col">
+    <h2>How it works</h2>
+    <ol class="chain">
+      <li><b>Sense.</b> LiDAR, camera, and IMU publish into ROS 2.</li>
+      <li><b>Fuse.</b> An EKF fuses the sensors into a pose estimate.</li>
+      <li><b>Label.</b> A PyTorch perception model, exported to TensorRT FP16, labels what the camera sees.</li>
+      <li><b>Map.</b> Labeled observations build a semantic occupancy grid.</li>
+      <li><b>Plan.</b> A* searches the grid for a route to the goal.</li>
+    </ol>
+    <p>Each stage runs as its own ROS 2 node, so any one of them can be swapped or tested alone.</p>
+  </div>
+  <figure class="p-inline">
+    <div class="frame">
+      <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of an occupancy grid map with a planned path" focusable="false"><path class="g" d="M28 10V82M36 10V82M44 10V82M52 10V82M60 10V82M68 10V82M76 10V82M84 10V82M92 10V82M100 10V82M108 10V82M116 10V82M124 10V82M132 10V82M20 18H140M20 26H140M20 34H140M20 42H140M20 50H140M20 58H140M20 66H140M20 74H140"/><path class="occ" d="M20 10h8v8h-8zM20 18h8v8h-8zM20 26h8v8h-8zM20 34h8v8h-8zM20 42h8v8h-8zM20 50h8v8h-8zM20 58h8v8h-8zM20 66h8v8h-8zM20 74h8v8h-8zM28 10h8v8h-8zM28 74h8v8h-8zM36 10h8v8h-8zM36 74h8v8h-8zM44 10h8v8h-8zM44 74h8v8h-8zM52 10h8v8h-8zM52 26h8v8h-8zM52 34h8v8h-8zM52 42h8v8h-8zM52 50h8v8h-8zM52 58h8v8h-8zM52 74h8v8h-8zM60 10h8v8h-8zM60 26h8v8h-8zM60 34h8v8h-8zM60 42h8v8h-8zM60 50h8v8h-8zM60 58h8v8h-8zM60 74h8v8h-8zM68 10h8v8h-8zM68 74h8v8h-8zM76 10h8v8h-8zM76 74h8v8h-8zM84 10h8v8h-8zM84 74h8v8h-8zM92 10h8v8h-8zM92 18h8v8h-8zM92 26h8v8h-8zM92 34h8v8h-8zM92 42h8v8h-8zM92 58h8v8h-8zM92 74h8v8h-8zM100 10h8v8h-8zM100 18h8v8h-8zM100 26h8v8h-8zM100 34h8v8h-8zM100 42h8v8h-8zM100 58h8v8h-8zM100 74h8v8h-8zM108 10h8v8h-8zM108 58h8v8h-8zM108 74h8v8h-8zM116 10h8v8h-8zM116 58h8v8h-8zM116 74h8v8h-8zM124 10h8v8h-8zM124 74h8v8h-8zM132 10h8v8h-8zM132 18h8v8h-8zM132 26h8v8h-8zM132 34h8v8h-8zM132 42h8v8h-8zM132 50h8v8h-8zM132 58h8v8h-8zM132 66h8v8h-8zM132 74h8v8h-8z"/><path class="dash" d="M32 70L28 26M32 70L60 18M32 70L60 66M32 70L84 78"/><path class="path" d="M32 70H88V54H128V22"/><circle class="hf" cx="32" cy="70" r="3"/><circle class="hi" cx="128" cy="22" r="3.4"/><circle class="hf" cx="128" cy="22" r="1.3"/></svg>
+      <video controls playsinline preload="none" poster="media/lidar-rviz.jpg" width="1280" height="720" muted aria-label="LiDAR scan shown in RViz2">
+        <source src="media/lidar-rviz.mp4" type="video/mp4">
+      </video>
+    </div>
+    <figcaption>Placeholder: a LiDAR scan in RViz2, recorded on the KBR rover. Footage of this robot is coming.</figcaption>
+  </figure>
+  <div class="col">
+    <h2>Where it stands</h2>
+    <!-- CONFIRM. -->
+    <p>Runs end to end on the robot, from raw sensors to a planned path.</p>
+  </div>
+  <a class="next" href="so101.html"><span class="muted">Next project</span><strong>Robot learning on a desktop arm</strong></a>
+</article>
+</main>
+<footer class="wrap site-foot">
+  <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
+  <p>Lukas Pfalz. Updated October 2026.</p>
+</footer>
+<script>
+/*
+  Media fallback. Every media frame has a line drawing underneath the real
+  photo or video. If a file has not been uploaded yet, the broken element is
+  removed so the drawing shows instead, and its caption is hidden. Figures
+  in the middle of a page (class p-inline) are removed entirely instead, so
+  a page never repeats the same drawing.
+  - Images: removed when they fail to load (works on the live site and when
+    previewing from disk).
+  - Videos: set to preload="none", so a missing file would only fail when
+    someone taps play. A small HEAD request checks each one up front. This
+    runs on the live site only, because browsers block it for local files.
+  - Once a video starts playing, its background turns black so portrait
+    clips are letterboxed cleanly instead of showing the drawing at the sides.
+*/
+(function () {
+  function drop(el) {
+    var fig = el.closest('figure');
+    if (fig && fig.classList.contains('p-inline')) { fig.remove(); return; }
+    el.remove();
+    if (fig) {
+      var cap = fig.querySelector('figcaption');
+      if (cap && !fig.hasAttribute('data-keep-caption')) cap.remove();
+    }
+  }
+  document.querySelectorAll('.frame img').forEach(function (img) {
+    if (img.complete && img.naturalWidth === 0) { drop(img); return; }
+    img.addEventListener('error', function () { drop(img); });
+  });
+  document.querySelectorAll('.frame video').forEach(function (v) {
+    v.addEventListener('play', function () { v.classList.add('playing'); });
+    var s = v.querySelector('source');
+    if (!s || !/^https?:/.test(location.protocol)) return;
+    fetch(s.src, { method: 'HEAD' }).then(function (r) { if (!r.ok) drop(v); }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>

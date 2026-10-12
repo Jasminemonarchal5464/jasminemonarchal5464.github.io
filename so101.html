@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robot learning on a desktop arm | Lukas Pfalz</title>
+<meta name="description" content="SO-101 arm, LeRobot teleoperation, imitation learning and sim-to-real plans. lukasbotzilla@gmail.com">
+<meta property="og:title" content="Robot learning on a desktop arm | Lukas Pfalz">
+<meta property="og:description" content="SO-101 arm, LeRobot teleoperation, imitation learning and sim-to-real plans. lukasbotzilla@gmail.com">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fafaf8">
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fafaf8'/%3E%3Cpath d='M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5' fill='none' stroke='%231e9e5a' stroke-width='3' stroke-linecap='round'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23000'/%3E%3C/svg%3E">
+</head>
+<body class="project">
+<header class="topbar wrap">
+  <a class="home" href="index.html">Lukas Pfalz</a>
+  <nav aria-label="Site">
+    <a href="index.html#projects">Projects</a>
+    <a href="resume.pdf">Resume</a>
+    <a href="mailto:lukasbotzilla@gmail.com">Email</a>
+  </nav>
+</header>
+<main>
+<header class="p-head wrap">
+  <a class="back" href="index.html#projects">All projects</a>
+  <h1>Robot learning on a desktop arm</h1>
+  <p class="lead">Teaching a low-cost robot arm new skills from demonstrations and simulation, then measuring how well those skills hold up on the real hardware.</p>
+  <dl class="spec">
+    <dt>Role</dt><dd>Personal project</dd>
+    <dt>When</dt><dd>September 2026 to present</dd>
+    <dt>Hardware</dt><dd>SO-101 arm (LeRobot kit); desktop with an RTX 5070 Ti for training</dd>
+    <dt>Software</dt><dd>LeRobot, PyTorch, NVIDIA Isaac Sim and Isaac Lab</dd>
+    <dt>Status</dt><dd>Teleoperation working. Recording demonstrations next.</dd>
+  </dl>
+  
+</header>
+
+<figure class="p-media wrap">
+  <div class="frame">
+    <svg class="art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of a robot arm reaching for a block" focusable="false"><path class="ln" d="M20 78H140"/><rect class="ln" x="38" y="68" width="20" height="10" rx="1.5"/><path class="lk" d="M48 66L70 34L100 46"/><circle class="jt" cx="48" cy="66" r="3"/><circle class="jt" cx="70" cy="34" r="3"/><circle class="jt" cx="100" cy="46" r="2.5"/><path class="ln" d="M100 48.5V53M95.5 53H104.5M95.5 53V59M104.5 53V59"/><rect class="ln" x="96" y="66" width="12" height="12"/><rect class="hi" x="92" y="62" width="20" height="20"/><rect class="hf" x="92" y="58.5" width="10" height="3.5"/></svg>
+      <video controls playsinline preload="none" poster="media/so101-teleop.jpg" width="1280" height="720" muted aria-label="Teleoperating the SO-101 arm">
+        <source src="media/so101-teleop.mp4" type="video/mp4">
+      </video>
+  </div>
+  <figcaption>Teleoperating the SO-101 through LeRobot. Recorded sessions like this become training data.</figcaption>
+</figure>
+
+<article class="p-body wrap">
+  <div class="col">
+    <h2>Why this project</h2>
+    <p>Most of my robotics work so far has been the software around the robot: perception, control loops, and the pipelines that move data. The controllers were hand-tuned. Robot learning replaces some of that tuning with policies learned from data, and I want to understand it by building the whole loop myself, on hardware I can afford to crash.</p>
+
+    <h2>The plan</h2>
+    <!-- CONFIRM the plan and each status chip. Keep only steps you would describe at a booth. -->
+    <ol class="chain">
+      <li><b>Teleoperate. <span class="chip done">Done</span></b> Drive the arm by hand through LeRobot. Working now, as in the video above.</li>
+      <li><b>Record demonstrations. <span class="chip">Next</span></b> Capture repeated attempts at one task, such as picking up a block, as training episodes of camera frames and joint positions.</li>
+      <li><b>Train an imitation policy. <span class="chip">Planned</span></b> Fit a policy such as ACT or Diffusion Policy to those episodes so the arm can repeat the task on its own.</li>
+      <li><b>Train in simulation. <span class="chip">Planned</span></b> Train a reach policy in Isaac Lab with randomized physics and visuals, so it does not overfit to one simulated world.</li>
+      <li><b>Transfer and measure. <span class="chip">Planned</span></b> Run each policy on the real arm and log its success rate over repeated trials.</li>
+    </ol>
+
+    <h2>How I'll judge it</h2>
+    <p>Success rate over repeated trials on the same task and setup, for every policy. One clean video can hide a policy that fails one time in three. The numbers go on this page as they come in, failures included.</p>
+
+    <h2>Updates</h2>
+    <!-- CONFIRM, and add a dated line every week or two. -->
+    <p class="muted">October 2026: arm assembled and teleoperated through LeRobot.</p>
+  </div>
+  <a class="next" href="rover.html"><span class="muted">Next project</span><strong>Autonomous rover with a voice</strong></a>
+</article>
+</main>
+<footer class="wrap site-foot">
+  <p><a href="mailto:lukasbotzilla@gmail.com">lukasbotzilla@gmail.com</a> <span aria-hidden="true">/</span> <a href="https://www.linkedin.com/in/lukaspfalz">LinkedIn</a> <span aria-hidden="true">/</span> <a href="https://github.com/Lukas-Pfalz">GitHub</a> <span aria-hidden="true">/</span> <a href="resume.pdf">Resume</a></p>
+  <p>Lukas Pfalz. Updated October 2026.</p>
+</footer>
+<script>
+/*
+  Media fallback. Every media frame has a line drawing underneath the real
+  photo or video. If a file has not been uploaded yet, the broken element is
+  removed so the drawing shows instead, and its caption is hidden. Figures
+  in the middle of a page (class p-inline) are removed entirely instead, so
+  a page never repeats the same drawing.
+  - Images: removed when they fail to load (works on the live site and when
+    previewing from disk).
+  - Videos: set to preload="none", so a missing file would only fail when
+    someone taps play. A small HEAD request checks each one up front. This
+    runs on the live site only, because browsers block it for local files.
+  - Once a video starts playing, its background turns black so portrait
+    clips are letterboxed cleanly instead of showing the drawing at the sides.
+*/
+(function () {
+  function drop(el) {
+    var fig = el.closest('figure');
+    if (fig && fig.classList.contains('p-inline')) { fig.remove(); return; }
+    el.remove();
+    if (fig) {
+      var cap = fig.querySelector('figcaption');
+      if (cap && !fig.hasAttribute('data-keep-caption')) cap.remove();
+    }
+  }
+  document.querySelectorAll('.frame img').forEach(function (img) {
+    if (img.complete && img.naturalWidth === 0) { drop(img); return; }
+    img.addEventListener('error', function () { drop(img); });
+  });
+  document.querySelectorAll('.frame video').forEach(function (v) {
+    v.addEventListener('play', function () { v.classList.add('playing'); });
+    var s = v.querySelector('source');
+    if (!s || !/^https?:/.test(location.protocol)) return;
+    fetch(s.src, { method: 'HEAD' }).then(function (r) { if (!r.ok) drop(v); }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>
